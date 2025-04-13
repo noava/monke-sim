@@ -1,0 +1,101 @@
+[gd_scene load_steps=19 format=3 uid="uid://dw37ibv584nkf"]
+
+[ext_resource type="Script" uid="uid://comqbk36b4wvn" path="res://scripts/level.gd" id="1_j8asw"]
+[ext_resource type="Texture2D" uid="uid://c3gr08t11puja" path="res://assets/textures/Grass/Grass004_1K-JPG_Color.jpg" id="2_8mr64"]
+[ext_resource type="Texture2D" uid="uid://m2wrlx1mg3l6" path="res://assets/textures/Grass/Grass004_1K-JPG_AmbientOcclusion.jpg" id="3_utrvu"]
+[ext_resource type="Texture2D" uid="uid://6gftjmntpomm" path="res://assets/textures/Grass/Grass004_1K-JPG_NormalGL.jpg" id="4_yh20h"]
+[ext_resource type="Texture2D" uid="uid://x2b41rys2ub3" path="res://assets/textures/Grass/Grass004_1K-JPG_Roughness.jpg" id="5_uf0dc"]
+[ext_resource type="Texture2D" uid="uid://hu1fr61irrep" path="res://assets/Bricks059_1K-JPG_Color.jpg" id="6_ci1tm"]
+[ext_resource type="Texture2D" uid="uid://6btrmxbfxte2" path="res://assets/textures/Bricks/Bricks059_1K-JPG_AmbientOcclusion.jpg" id="7_fme2p"]
+[ext_resource type="Texture2D" uid="uid://dorb6tbmeox7t" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Displacement.jpg" id="8_0p782"]
+[ext_resource type="Texture2D" uid="uid://cb1576tb11v75" path="res://assets/textures/Bricks/Bricks059_1K-JPG_NormalGL.jpg" id="9_0lbey"]
+[ext_resource type="Texture2D" uid="uid://cpu6a4i6esy6b" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Roughness.jpg" id="10_pm4hl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2dftf"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_8e680"]
+sky_material = SubResource("ProceduralSkyMaterial_2dftf")
+
+[sub_resource type="Environment" id="Environment_js7pq"]
+background_mode = 2
+sky = SubResource("Sky_8e680")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5cjrv"]
+albedo_texture = ExtResource("2_8mr64")
+roughness = 0.2
+roughness_texture = ExtResource("5_uf0dc")
+normal_enabled = true
+normal_texture = ExtResource("4_yh20h")
+ao_enabled = true
+ao_texture = ExtResource("3_utrvu")
+uv1_scale = Vector3(5, 5, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5nsto"]
+albedo_texture = ExtResource("6_ci1tm")
+roughness_texture = ExtResource("10_pm4hl")
+normal_enabled = true
+normal_texture = ExtResource("9_0lbey")
+ao_enabled = true
+ao_texture = ExtResource("7_fme2p")
+heightmap_enabled = true
+heightmap_texture = ExtResource("8_0p782")
+
+[sub_resource type="BoxMesh" id="BoxMesh_8e680"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4y0hx"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8e680"]
+properties/0/path = NodePath("Map/Thang:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Map/Thang:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Testing" type="Node3D"]
+script = ExtResource("1_j8asw")
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map"]
+transform = Transform3D(0.63693, 0.768273, 0.0638417, 0.493718, -0.470107, 0.731602, 0.592083, -0.43446, -0.678736, -0.0158205, 2.62206, 0.0172648)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Map"]
+environment = SubResource("Environment_js7pq")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Map"]
+transform = Transform3D(57.0539, 0, 0, 0, 0.113385, 0, 0, 0, 41.5474, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_5cjrv")
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
+transform = Transform3D(5.31307, 0, 0, 0, 2.70129, 0, 0, 0, 5.66025, 0.0172362, 1.35913, -12.6413)
+material_override = SubResource("StandardMaterial3D_5nsto")
+use_collision = true
+
+[node name="Thang" type="RigidBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.759817, -5.52076)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Thang"]
+mesh = SubResource("BoxMesh_8e680")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Thang"]
+shape = SubResource("BoxShape3D_4y0hx")
+
+[node name="SpawnPoints" type="Node3D" parent="Map"]
+
+[node name="Spawn0" type="Node3D" parent="Map/SpawnPoints"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54202, 0, -7.33269)
+
+[node name="Players" type="Node3D" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dox504m0gs4gt")
+spawn_path = NodePath("../Players")
+
+[node name="ItemSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8e680")

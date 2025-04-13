@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://wau7ipdwnh5o"]
+
+[ext_resource type="Script" uid="uid://d1l3aka2qhdeg" path="res://scripts/multiplayer.gd" id="1_fnul3"]
+
+[node name="multiplayer" type="Node"]
+script = ExtResource("1_fnul3")
+
+[node name="Level" type="Node" parent="."]
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://dw37ibv584nkf")
+spawn_path = NodePath("../Level")
+spawn_limit = 1
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HostBtn" type="Button" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 147.0
+offset_right = 165.0
+offset_bottom = 178.0
+grow_vertical = 0
+text = "Host"
+
+[node name="IPEntry" type="LineEdit" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 234.0
+offset_right = 165.0
+offset_bottom = 265.0
+placeholder_text = "Enter IP"
+alignment = 1
+
+[node name="JoinBtn" type="Button" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 242.0
+offset_right = 165.0
+offset_bottom = 273.0
+grow_vertical = 0
+text = "Join"
+
+[connection signal="pressed" from="UI/HostBtn" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/JoinBtn" to="." method="_on_join_pressed"]
