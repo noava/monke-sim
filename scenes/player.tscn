@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dox504m0gs4gt"]
 
-[ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Script" uid="uid://s2tb0yomgv11" path="res://scripts/player_input.gd" id="2_qhqgy"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" path="res://scripts/player_input.gd" id="2_qhqgy"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6fml"]
 albedo_color = Color(0.823039, 0.413615, 0.205021, 1)
@@ -90,8 +90,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uwk8q"]
 _data = {
-&"Crouch": SubResource("Animation_b2ed3"),
-&"RESET": SubResource("Animation_wkx32")
+"Crouch": SubResource("Animation_b2ed3"),
+"RESET": SubResource("Animation_wkx32")
 }
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b2ed3"]
@@ -143,7 +143,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_uwk8q")
+"": SubResource("AnimationLibrary_uwk8q")
 }
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]

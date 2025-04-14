@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://dw37ibv584nkf"]
+[gd_scene load_steps=27 format=3 uid="uid://dw37ibv584nkf"]
 
-[ext_resource type="Script" uid="uid://comqbk36b4wvn" path="res://scripts/level.gd" id="1_j8asw"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_j8asw"]
 [ext_resource type="Texture2D" uid="uid://c3gr08t11puja" path="res://assets/textures/Grass/Grass004_1K-JPG_Color.jpg" id="2_8mr64"]
+[ext_resource type="Script" path="res://scripts/moon.gd" id="2_vx8f3"]
 [ext_resource type="Texture2D" uid="uid://m2wrlx1mg3l6" path="res://assets/textures/Grass/Grass004_1K-JPG_AmbientOcclusion.jpg" id="3_utrvu"]
 [ext_resource type="Texture2D" uid="uid://6gftjmntpomm" path="res://assets/textures/Grass/Grass004_1K-JPG_NormalGL.jpg" id="4_yh20h"]
 [ext_resource type="Texture2D" uid="uid://x2b41rys2ub3" path="res://assets/textures/Grass/Grass004_1K-JPG_Roughness.jpg" id="5_uf0dc"]
@@ -11,12 +12,18 @@
 [ext_resource type="Texture2D" uid="uid://cb1576tb11v75" path="res://assets/textures/Bricks/Bricks059_1K-JPG_NormalGL.jpg" id="9_0lbey"]
 [ext_resource type="Texture2D" uid="uid://cpu6a4i6esy6b" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Roughness.jpg" id="10_pm4hl"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2dftf"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+[sub_resource type="Gradient" id="Gradient_xuq1u"]
+colors = PackedColorArray(0, 0, 0.176471, 1, 0.0253638, 0.0253638, 0.0253638, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oon3b"]
+gradient = SubResource("Gradient_xuq1u")
+fill_from = Vector2(1, 0.598901)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_e03pf"]
+night_sky = SubResource("GradientTexture2D_oon3b")
 
 [sub_resource type="Sky" id="Sky_8e680"]
-sky_material = SubResource("ProceduralSkyMaterial_2dftf")
+sky_material = SubResource("PhysicalSkyMaterial_e03pf")
 
 [sub_resource type="Environment" id="Environment_js7pq"]
 background_mode = 2
@@ -48,6 +55,58 @@ heightmap_texture = ExtResource("8_0p782")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4y0hx"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bgcqo"]
+albedo_color = Color(0.811765, 0.811765, 0.811765, 1)
+emission_enabled = true
+emission = Color(0.677504, 0.784652, 1, 1)
+emission_energy_multiplier = 0.8
+
+[sub_resource type="SphereMesh" id="SphereMesh_l4wux"]
+material = SubResource("StandardMaterial3D_bgcqo")
+radius = 20.0
+height = 40.0
+radial_segments = 32
+rings = 16
+
+[sub_resource type="Animation" id="Animation_vwu2e"]
+length = 600.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 600),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(6.28319, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qem4r"]
+resource_name = "daynite"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../DirectionalLight3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(6.28319, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xvv5i"]
+_data = {
+"RESET": SubResource("Animation_vwu2e"),
+"daynite": SubResource("Animation_qem4r")
+}
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8e680"]
 properties/0/path = NodePath("Map/Thang:position")
 properties/0/spawn = true
@@ -60,9 +119,10 @@ properties/1/replication_mode = 1
 script = ExtResource("1_j8asw")
 
 [node name="Map" type="Node3D" parent="."]
+script = ExtResource("2_vx8f3")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map"]
-transform = Transform3D(0.63693, 0.768273, 0.0638417, 0.493718, -0.470107, 0.731602, 0.592083, -0.43446, -0.678736, -0.0158205, 2.62206, 0.0172648)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00168753, 2.61333, 0.0221152)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Map"]
 environment = SubResource("Environment_js7pq")
@@ -91,6 +151,21 @@ shape = SubResource("BoxShape3D_4y0hx")
 [node name="Spawn0" type="Node3D" parent="Map/SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54202, 0, -7.33269)
 
+[node name="Moon" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 300, 1000)
+mesh = SubResource("SphereMesh_l4wux")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Map"]
+root_node = NodePath("../CSGBox3D2")
+libraries = {
+"": SubResource("AnimationLibrary_xvv5i")
+}
+autoplay = "RESET"
+
+[node name="NightTimer" type="Timer" parent="Map"]
+wait_time = 300.0
+one_shot = true
+
 [node name="Players" type="Node3D" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -99,3 +174,5 @@ spawn_path = NodePath("../Players")
 
 [node name="ItemSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_8e680")
+
+[connection signal="timeout" from="Map/NightTimer" to="Map" method="_on_night_timer_timeout"]
