@@ -50,17 +50,19 @@ func _set_layer_recursively(node: Node, layer: int) -> void:
 		_set_layer_recursively(child, layer)
 
 func _ready():
-	if not is_multiplayer_authority():
-		return
+	if is_multiplayer_authority():
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		camera.current = true
 
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	camera.current = true
-
-	# Hide monkey visuals for local player
-	var monkey_visual_root = $player_model/monkey
-	if monkey_visual_root:
-		_set_layer_recursively(monkey_visual_root, 1 << 2)
+		# Hide monkey visuals for local player
+		var monkey_visual_root = $player_model/monkey
+		if monkey_visual_root:
+			_set_layer_recursively(monkey_visual_root, 1 << 2)
 		camera.cull_mask &= ~(1 << 2)  # Hide layer 2 for this camera
+	else:
+		camera.current = false
+
+
 	
 func _unhandled_input(event):
 	if not is_multiplayer_authority(): return
