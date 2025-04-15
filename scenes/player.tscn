@@ -1,12 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=10 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://bri01b320j07" path="res://assets/sprites/Chimpanzee.glb" id="2_37ogv"]
 [ext_resource type="Script" path="res://scripts/player_input.gd" id="2_qhqgy"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6fml"]
-albedo_color = Color(0.823039, 0.413615, 0.205021, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_3li8b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gntrk"]
 
@@ -120,22 +116,25 @@ properties/0/replication_mode = 1
 script = ExtResource("1_g2els")
 
 [node name="player_model" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0)
-layers = 2
-material_override = SubResource("StandardMaterial3D_v6fml")
-mesh = SubResource("BoxMesh_3li8b")
+transform = Transform3D(-0.02, 0, -1.74846e-09, 0, 0.02, 0, 1.74846e-09, 0, -0.02, 0, 1.2, 0)
+skeleton = NodePath("monkey")
+
+[node name="monkey" parent="player_model" instance=ExtResource("2_37ogv")]
+transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_gntrk")
 
 [node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 2.19062, 0.0254543)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.268209, -0.354033)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0131826, -0.177989)
+current = true
 
 [node name="Grab Ray" type="RayCast3D" parent="Head/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0609423)
 target_position = Vector3(0, 0, -2.5)
 
 [node name="Grab Target" type="Node3D" parent="Head/Camera3D/Grab Ray"]

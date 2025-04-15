@@ -43,11 +43,24 @@ var throw_force = 20.0
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 		
+func _set_layer_recursively(node: Node, layer: int) -> void:
+	if node is VisualInstance3D:
+		node.layers = layer
+	for child in node.get_children():
+		_set_layer_recursively(child, layer)
+
 func _ready():
-	if not is_multiplayer_authority(): return
-		
+	if not is_multiplayer_authority():
+		return
+
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
+
+	# Hide monkey visuals for local player
+	var monkey_visual_root = $player_model/monkey
+	if monkey_visual_root:
+		_set_layer_recursively(monkey_visual_root, 1 << 2)
+		camera.cull_mask &= ~(1 << 2)  # Hide layer 2 for this camera
 	
 func _unhandled_input(event):
 	if not is_multiplayer_authority(): return
@@ -93,13 +106,27 @@ func _physics_process(delta):
 		if direction:
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
-			armature.rotation.y = lerp_angle(armature.rotation.y, atan2(-velocity.x, -velocity.z), LERP_VAL)
 		else:
 			velocity.x = lerp(velocity.x, direction.x * speed, delta * 7.0)
 			velocity.z = lerp(velocity.z, direction.z * speed, delta * 7.0)
 	else:
 		velocity.x = lerp(velocity.x, direction.x * speed, delta * 3.0)
 		velocity.z = lerp(velocity.z, direction.z * speed, delta * 3.0)
+
+	# Make monkey face move direction or look direction
+	if velocity.length() > 0.1:
+		# Face movement direction
+		armature.rotation.y = lerp_angle(armature.rotation.y, atan2(velocity.x, velocity.z), LERP_VAL)
+	else:
+		# Face opposite of look direction when idle
+		var cam_forward = head.global_transform.basis.z
+		cam_forward.y = 0
+		cam_forward = cam_forward.normalized()
+		var target_yaw = atan2(cam_forward.x, cam_forward.z) + PI # ← added PI to face opposite
+		armature.rotation.y = lerp_angle(armature.rotation.y, target_yaw, LERP_VAL)
+
+
+
 	
 	# Head bob
 	t_bob += delta * velocity.length() * float(is_on_floor())
