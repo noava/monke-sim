@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hu1fr61irrep"
-path.s3tc="res://.godot/imported/Bricks059_1K-JPG_Color.jpg-899d8b57b3cce8db0735200a4af7b7c1.s3tc.ctex"
+uid="uid://ecwdkh8knssl"
+path="res://.godot/imported/monkey_splash.png-6981aa9ce1ef2ab12aad75d229dc93e0.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Bricks059_1K-JPG_Color.jpg"
-dest_files=["res://.godot/imported/Bricks059_1K-JPG_Color.jpg-899d8b57b3cce8db0735200a4af7b7c1.s3tc.ctex"]
+source_file="res://assets/sprites/monkey_splash.png"
+dest_files=["res://.godot/imported/monkey_splash.png-6981aa9ce1ef2ab12aad75d229dc93e0.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

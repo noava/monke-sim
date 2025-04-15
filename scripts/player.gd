@@ -31,14 +31,21 @@ var grab:RigidBody3D
 # Throw
 var throw_force = 20.0
 
+# Crosshair
+@onready var  HOOK_AVAILIBLE_TEXTURE : CompressedTexture2D = preload("res://assets/sprites/hook_available.png")
+@onready var HOOK_NOT_AVAILIBLE_TEXTURE : CompressedTexture2D = preload("res://assets/sprites/crosshair.png")
+@onready var crosshair: TextureRect = $HUD/Crosshair
+
 @export var ANIMATIONPLAYER : AnimationPlayer
 
 @onready var armature: Node3D = $player_model
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var input: MultiplayerSynchronizer = $PlayerInput
-@onready var raycast: RayCast3D = $"Head/Camera3D/Grab Ray"
+@onready var grab_raycast: RayCast3D = $"Head/Camera3D/Grab Ray"
 @onready var grab_target: Node3D = $"Head/Camera3D/Grab Ray/Grab Target"
+@onready var hook_raycast: RayCast3D = $"Head/Camera3D/Hook Raycast"
+@onready var hook_controller: HookController = $HookController
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
@@ -115,8 +122,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("interact"):
 		if grab:
 			release()
-		elif raycast.is_colliding() and raycast.get_collider() is RigidBody3D:
-			grab = raycast.get_collider()
+		elif grab_raycast.is_colliding() and grab_raycast.get_collider() is RigidBody3D:
+			grab = grab_raycast.get_collider()
 
 	if grab:
 		grab.linear_velocity = grab_force * (grab_target.global_position - grab.global_position)
@@ -127,8 +134,10 @@ func _physics_process(delta):
 
 			grab.apply_impulse(Vector3.ZERO, dir * throw_force)
 			release()
-	
+
 	move_and_slide()
+	
+	crosshair.texture = HOOK_AVAILIBLE_TEXTURE if hook_raycast.is_colliding() and not hook_controller.is_hook_launched else HOOK_NOT_AVAILIBLE_TEXTURE
 
 
 func _headbob(time) -> Vector3:
