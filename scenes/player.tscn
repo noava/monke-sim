@@ -92,8 +92,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uwk8q"]
 _data = {
-&"Crouch": SubResource("Animation_b2ed3"),
-&"RESET": SubResource("Animation_wkx32")
+"Crouch": SubResource("Animation_b2ed3"),
+"RESET": SubResource("Animation_wkx32")
 }
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b2ed3"]
@@ -151,7 +151,7 @@ script = ExtResource("2_dqkch")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_uwk8q")
+"": SubResource("AnimationLibrary_uwk8q")
 }
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
