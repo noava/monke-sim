@@ -1,11 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://dw37ibv584nkf"]
+[gd_scene load_steps=18 format=3 uid="uid://dw37ibv584nkf"]
 
 [ext_resource type="Script" uid="uid://comqbk36b4wvn" path="res://scripts/level.gd" id="1_j8asw"]
 [ext_resource type="Texture2D" uid="uid://c3gr08t11puja" path="res://assets/textures/Grass/Grass004_1K-JPG_Color.jpg" id="2_8mr64"]
 [ext_resource type="Texture2D" uid="uid://m2wrlx1mg3l6" path="res://assets/textures/Grass/Grass004_1K-JPG_AmbientOcclusion.jpg" id="3_utrvu"]
 [ext_resource type="Texture2D" uid="uid://6gftjmntpomm" path="res://assets/textures/Grass/Grass004_1K-JPG_NormalGL.jpg" id="4_yh20h"]
 [ext_resource type="Texture2D" uid="uid://x2b41rys2ub3" path="res://assets/textures/Grass/Grass004_1K-JPG_Roughness.jpg" id="5_uf0dc"]
-[ext_resource type="Texture2D" uid="uid://hu1fr61irrep" path="res://assets/Bricks059_1K-JPG_Color.jpg" id="6_ci1tm"]
+[ext_resource type="Texture2D" uid="uid://dsl7iowddlc54" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Color.jpg" id="6_j8asw"]
 [ext_resource type="Texture2D" uid="uid://6btrmxbfxte2" path="res://assets/textures/Bricks/Bricks059_1K-JPG_AmbientOcclusion.jpg" id="7_fme2p"]
 [ext_resource type="Texture2D" uid="uid://dorb6tbmeox7t" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Displacement.jpg" id="8_0p782"]
 [ext_resource type="Texture2D" uid="uid://cb1576tb11v75" path="res://assets/textures/Bricks/Bricks059_1K-JPG_NormalGL.jpg" id="9_0lbey"]
@@ -35,7 +35,7 @@ ao_texture = ExtResource("3_utrvu")
 uv1_scale = Vector3(5, 5, 5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5nsto"]
-albedo_texture = ExtResource("6_ci1tm")
+albedo_texture = ExtResource("6_j8asw")
 roughness_texture = ExtResource("10_pm4hl")
 normal_enabled = true
 normal_texture = ExtResource("9_0lbey")
