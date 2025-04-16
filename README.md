@@ -13,7 +13,7 @@
 - Walking,
 - Jumping
 - Sprinting
-- Picking up items
+- Grab items
 - Hooking
 
 # Controls
@@ -21,8 +21,9 @@
 - Space to jump
 - Left Shift to sprint
 - ~~Left Control to crouch~~
-- E to pick up items
+- E to grab items
 - Hold Left Click to hook.
+- Use number keys to select items from hotbar.
 
 ### Folder Structure:
 ```
@@ -33,6 +34,7 @@ res://
 │   ├── sprites/
 │   └── textures/
 |
+├── inventory/
 ├── scenes/
 ├── scripts/
 |

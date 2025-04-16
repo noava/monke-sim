@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://cchpdf1x63oa5"]
+
+[ext_resource type="Script" uid="uid://2gx021v5oj0c" path="res://inventory/inv_ui.gd" id="1_f2u1w"]
+
+[node name="Inv_UI" type="PanelContainer"]
+custom_minimum_size = Vector2(32, 0)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -178.0
+offset_top = -77.0
+offset_right = 194.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+script = ExtResource("1_f2u1w")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ItemGrid" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2

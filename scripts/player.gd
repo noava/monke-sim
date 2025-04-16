@@ -32,7 +32,7 @@ var grab:RigidBody3D
 var throw_force = 20.0
 
 # Crosshair
-@onready var  HOOK_AVAILIBLE_TEXTURE : CompressedTexture2D = preload("res://assets/sprites/hook_available.png")
+@onready var HOOK_AVAILIBLE_TEXTURE : CompressedTexture2D = preload("res://assets/sprites/hook_available.png")
 @onready var HOOK_NOT_AVAILIBLE_TEXTURE : CompressedTexture2D = preload("res://assets/sprites/crosshair.png")
 @onready var crosshair: TextureRect = $HUD/Crosshair
 
@@ -137,7 +137,7 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
-	crosshair.texture = HOOK_AVAILIBLE_TEXTURE if hook_raycast.is_colliding() and not hook_controller.is_hook_launched else HOOK_NOT_AVAILIBLE_TEXTURE
+	crosshair.texture = HOOK_AVAILIBLE_TEXTURE if hook_raycast.is_colliding() and not hook_controller.is_hook_launched and hook_controller.is_enabled else HOOK_NOT_AVAILIBLE_TEXTURE
 
 
 func _headbob(time) -> Vector3:
