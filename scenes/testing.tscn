@@ -1,16 +1,19 @@
-[gd_scene load_steps=27 format=3 uid="uid://dw37ibv584nkf"]
+[gd_scene load_steps=29 format=3 uid="uid://dw37ibv584nkf"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_j8asw"]
+[ext_resource type="Script" uid="uid://comqbk36b4wvn" path="res://scripts/level.gd" id="1_j8asw"]
 [ext_resource type="Texture2D" uid="uid://c3gr08t11puja" path="res://assets/textures/Grass/Grass004_1K-JPG_Color.jpg" id="2_8mr64"]
-[ext_resource type="Script" path="res://scripts/moon.gd" id="2_vx8f3"]
+[ext_resource type="Script" uid="uid://2dy8sdbgw5r1" path="res://scripts/moon.gd" id="2_vx8f3"]
 [ext_resource type="Texture2D" uid="uid://m2wrlx1mg3l6" path="res://assets/textures/Grass/Grass004_1K-JPG_AmbientOcclusion.jpg" id="3_utrvu"]
 [ext_resource type="Texture2D" uid="uid://6gftjmntpomm" path="res://assets/textures/Grass/Grass004_1K-JPG_NormalGL.jpg" id="4_yh20h"]
 [ext_resource type="Texture2D" uid="uid://x2b41rys2ub3" path="res://assets/textures/Grass/Grass004_1K-JPG_Roughness.jpg" id="5_uf0dc"]
 [ext_resource type="Texture2D" uid="uid://dsl7iowddlc54" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Color.jpg" id="6_j8asw"]
+[ext_resource type="Material" uid="uid://ctgnc30pqm7vq" path="res://assets/materials/brick.tres" id="7_5qbqa"]
 [ext_resource type="Texture2D" uid="uid://6btrmxbfxte2" path="res://assets/textures/Bricks/Bricks059_1K-JPG_AmbientOcclusion.jpg" id="7_fme2p"]
 [ext_resource type="Texture2D" uid="uid://dorb6tbmeox7t" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Displacement.jpg" id="8_0p782"]
 [ext_resource type="Texture2D" uid="uid://cb1576tb11v75" path="res://assets/textures/Bricks/Bricks059_1K-JPG_NormalGL.jpg" id="9_0lbey"]
 [ext_resource type="Texture2D" uid="uid://cpu6a4i6esy6b" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Roughness.jpg" id="10_pm4hl"]
+[ext_resource type="PackedScene" uid="uid://d1qobkjvefgp6" path="res://assets/models/banana.glb" id="13_yh20h"]
+[ext_resource type="PackedScene" uid="uid://cflj7hd6oules" path="res://assets/models/multiple_bananas.glb" id="14_uf0dc"]
 
 [sub_resource type="Gradient" id="Gradient_xuq1u"]
 colors = PackedColorArray(0, 0, 0.176471, 1, 0.0253638, 0.0253638, 0.0253638, 1)
@@ -41,7 +44,7 @@ ao_enabled = true
 ao_texture = ExtResource("3_utrvu")
 uv1_scale = Vector3(5, 5, 5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5nsto"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utrvu"]
 albedo_texture = ExtResource("6_j8asw")
 roughness_texture = ExtResource("10_pm4hl")
 normal_enabled = true
@@ -50,10 +53,11 @@ ao_enabled = true
 ao_texture = ExtResource("7_fme2p")
 heightmap_enabled = true
 heightmap_texture = ExtResource("8_0p782")
-
-[sub_resource type="BoxMesh" id="BoxMesh_8e680"]
+uv1_triplanar = true
+uv1_world_triplanar = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4y0hx"]
+size = Vector3(1.06998, 1.35187, 0.438477)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bgcqo"]
 albedo_color = Color(0.811765, 0.811765, 0.811765, 1)
@@ -103,8 +107,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xvv5i"]
 _data = {
-"RESET": SubResource("Animation_vwu2e"),
-"daynite": SubResource("Animation_qem4r")
+&"RESET": SubResource("Animation_vwu2e"),
+&"daynite": SubResource("Animation_qem4r")
 }
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8e680"]
@@ -134,16 +138,22 @@ use_collision = true
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
 transform = Transform3D(5.31307, 0, 0, 0, 2.70129, 0, 0, 0, 5.66025, 0.0172362, 1.35913, -12.6413)
-material_override = SubResource("StandardMaterial3D_5nsto")
+material_override = ExtResource("7_5qbqa")
 use_collision = true
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Map"]
+transform = Transform3D(5.31307, 0, 0, 0, 2.70129, 0, 0, 0, 5.66025, 13.0641, 10.2298, -5.20538)
+material_override = SubResource("StandardMaterial3D_utrvu")
+use_collision = true
+size = Vector3(0.412231, 7.53113, 0.402832)
 
 [node name="Thang" type="RigidBody3D" parent="Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.759817, -5.52076)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Thang"]
-mesh = SubResource("BoxMesh_8e680")
+[node name="banana" parent="Map/Thang" instance=ExtResource("13_yh20h")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Thang"]
+transform = Transform3D(0.07, 0, 0, 0, 0.093, 0, 0, 0, 0.439, -0.00373697, 0.0394471, -0.0132542)
 shape = SubResource("BoxShape3D_4y0hx")
 
 [node name="SpawnPoints" type="Node3D" parent="Map"]
@@ -158,13 +168,25 @@ mesh = SubResource("SphereMesh_l4wux")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Map"]
 root_node = NodePath("../CSGBox3D2")
 libraries = {
-"": SubResource("AnimationLibrary_xvv5i")
+&"": SubResource("AnimationLibrary_xvv5i")
 }
 autoplay = "RESET"
 
 [node name="NightTimer" type="Timer" parent="Map"]
 wait_time = 300.0
 one_shot = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08442, -5.31639)
+
+[node name="Thang2" type="RigidBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26098, 0.759817, -5.52076)
+
+[node name="multiple_bananas" parent="Map/Thang2" instance=ExtResource("14_uf0dc")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Thang2"]
+transform = Transform3D(0.134592, 0, 0, 0, 0.093207, 0, 0, 0, 0.438847, 0.00350755, 0.0537121, -0.0132542)
+shape = SubResource("BoxShape3D_4y0hx")
 
 [node name="Players" type="Node3D" parent="."]
 
