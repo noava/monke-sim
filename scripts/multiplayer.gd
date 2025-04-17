@@ -2,6 +2,7 @@ extends Node
 
 const PORT = 135
 var peer = ENetMultiplayerPeer.new()
+@onready var name_entry: LineEdit = %NameEntry
 @onready var ip_entry: LineEdit = %IPEntry
 @onready var join_btn: Button = %JoinBtn
 
@@ -15,6 +16,10 @@ func _unhandled_input(_event: InputEvent) -> void:
 		get_tree().quit()
 
 func _on_host_pressed() -> void:
+	if name_entry.text == "":
+		OS.alert("Need a name")
+		return
+
 	peer.create_server(PORT)
 	multiplayer.multiplayer_peer = peer
 	start_game()
@@ -37,6 +42,9 @@ func _on_text_changed(new_text):
 	join_btn.disabled = new_text.strip_edges() == ""
 
 func _on_join_pressed() -> void:
+	if name_entry.text == "":
+		OS.alert("Need a name")
+		return
 	if ip_entry.text == "":
 		OS.alert("Need a remote to connect to.")
 		return

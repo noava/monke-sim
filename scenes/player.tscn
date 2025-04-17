@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=27 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
@@ -210,6 +210,12 @@ properties/0/path = NodePath(".:input_direction")
 properties/0/spawn = false
 properties/0/replication_mode = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur7pv"]
+bg_color = Color(0.727778, 0, 0.286431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4r1p"]
+bg_color = Color(0.431373, 0.67451, 0.14902, 1)
+
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_g2els")
 
@@ -275,6 +281,9 @@ transform = Transform3D(-0.75, 0, -6.55671e-08, 0, 0.75, 0, 6.55671e-08, 0, -0.7
 [node name="HookRopeStart" type="Marker3D" parent="ODM"]
 transform = Transform3D(-1.33333, 3.01689e-08, 1.12592e-07, 0, 1.2879, -0.345092, -1.16564e-07, -0.345092, -1.2879, -0.292669, 0.041883, 0.236053)
 
+[node name="HealthComponent" type="Node3D" parent="."]
+script = ExtResource("9_ur7pv")
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Crosshair" type="TextureRect" parent="HUD"]
@@ -298,5 +307,23 @@ offset_top = -58.0
 offset_right = 186.0
 offset_bottom = -10.0
 
-[node name="HealthComponent" type="Node3D" parent="."]
-script = ExtResource("9_ur7pv")
+[node name="HealthBar" type="ProgressBar" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 159.0
+offset_top = 27.0
+offset_right = -159.0
+offset_bottom = -296.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ur7pv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_y4r1p")
+max_value = 10.0
+value = 10.0
+show_percentage = false
+
+[node name="NameLabel3D" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28943, 0)
+billboard = 1

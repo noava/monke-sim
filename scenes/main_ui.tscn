@@ -14,44 +14,46 @@ spawn_limit = 1
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="HostBtn" type="Button" parent="UI"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = 147.0
-offset_right = 165.0
-offset_bottom = 178.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -68.0
+offset_right = 85.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameEntry" type="LineEdit" parent="UI/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Name"
+alignment = 1
+
+[node name="HostBtn" type="Button" parent="UI/VBoxContainer"]
+layout_mode = 2
 text = "Host"
 
-[node name="IPEntry" type="LineEdit" parent="UI"]
+[node name="IPEntry" type="LineEdit" parent="UI/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 40.0
-offset_top = 234.0
-offset_right = 165.0
-offset_bottom = 265.0
+layout_mode = 2
 placeholder_text = "Enter IP"
 alignment = 1
 
-[node name="JoinBtn" type="Button" parent="UI"]
+[node name="JoinBtn" type="Button" parent="UI/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 40.0
-offset_top = 242.0
-offset_right = 165.0
-offset_bottom = 273.0
-grow_vertical = 0
+layout_mode = 2
 text = "Join"
 
-[connection signal="pressed" from="UI/HostBtn" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="UI/JoinBtn" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/HostBtn" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/VBoxContainer/JoinBtn" to="." method="_on_join_pressed"]
