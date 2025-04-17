@@ -1,13 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=25 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://s2tb0yomgv11" path="res://scripts/player_input.gd" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://p78nvnxpksgh" path="res://assets/models/banana_gun.glb" id="2_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://mqqqq7xb03a" path="res://assets/sprites/star_05.png" id="3_fjrip"]
-[ext_resource type="Script" uid="uid://dhx3vun3cc8oe" path="res://scripts/gun.gd" id="3_smehm"]
+[ext_resource type="Script" uid="uid://dhx3vun3cc8oe" path="res://scripts/banana_gun.gd" id="3_smehm"]
 [ext_resource type="Texture2D" uid="uid://cskw882fffi36" path="res://assets/sprites/hook_available.png" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://cchpdf1x63oa5" path="res://inventory/inv_ui.tscn" id="6_tuyoq"]
+[ext_resource type="Script" uid="uid://d04thcbw25pd0" path="res://scripts/health_component.gd" id="9_ur7pv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6fml"]
 albedo_color = Color(0.823039, 0.413615, 0.205021, 1)
@@ -268,10 +269,10 @@ root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_rpqav")
 script = ExtResource("2_qhqgy")
 
-[node name="Items" type="Node3D" parent="."]
+[node name="ODM" type="Node3D" parent="."]
 transform = Transform3D(-0.75, 0, -6.55671e-08, 0, 0.75, 0, 6.55671e-08, 0, -0.75, -0.025331, 1, 0.153343)
 
-[node name="HookRopeStart" type="Marker3D" parent="Items"]
+[node name="HookRopeStart" type="Marker3D" parent="ODM"]
 transform = Transform3D(-1.33333, 3.01689e-08, 1.12592e-07, 0, 1.2879, -0.345092, -1.16564e-07, -0.345092, -1.2879, -0.292669, 0.041883, 0.236053)
 
 [node name="HUD" type="CanvasLayer" parent="."]
@@ -296,3 +297,6 @@ offset_left = -186.0
 offset_top = -58.0
 offset_right = 186.0
 offset_bottom = -10.0
+
+[node name="HealthComponent" type="Node3D" parent="."]
+script = ExtResource("9_ur7pv")

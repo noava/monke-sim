@@ -27,6 +27,8 @@ func _ready() -> void:
 	populate_item_grid(inv_data.slot_datas)
 	
 func _input(_event: InputEvent) -> void:
+	if not is_multiplayer_authority(): return
+
 	for number in range(10):
 		if Input.is_action_just_pressed("number_%d" % number):
 			equip_item(number)
@@ -48,7 +50,7 @@ func equip_item(slot_index: int) -> void:
 			# Vine Grapple
 			hook_controller.is_enabled = (item_name == "Vine Grapple")
 			
-			# Gun			
+			# Gun
 			var is_gun: bool = item_name == "Gun"
 			banana_gun.rpc("set_enabled", is_gun)
 
