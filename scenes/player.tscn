@@ -1,8 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=24 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://s2tb0yomgv11" path="res://scripts/player_input.gd" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://p78nvnxpksgh" path="res://assets/models/banana_gun.glb" id="2_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://mqqqq7xb03a" path="res://assets/sprites/star_05.png" id="3_fjrip"]
+[ext_resource type="Script" uid="uid://dhx3vun3cc8oe" path="res://scripts/gun.gd" id="3_smehm"]
 [ext_resource type="Texture2D" uid="uid://cskw882fffi36" path="res://assets/sprites/hook_available.png" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://cchpdf1x63oa5" path="res://inventory/inv_ui.tscn" id="6_tuyoq"]
 
@@ -12,6 +15,35 @@ albedo_color = Color(0.823039, 0.413615, 0.205021, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_3li8b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gntrk"]
+
+[sub_resource type="Gradient" id="Gradient_fjrip"]
+offsets = PackedFloat32Array(0, 0.227273, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_smehm"]
+gradient = SubResource("Gradient_fjrip")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
+angle_min = 45.0
+angle_max = 45.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_smehm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjrip"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.874915, 0.55899, 8.85606e-06, 1)
+albedo_texture = ExtResource("3_fjrip")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_smehm"]
+material = SubResource("StandardMaterial3D_fjrip")
+size = Vector2(0.5, 0.5)
+orientation = 2
 
 [sub_resource type="Animation" id="Animation_b2ed3"]
 resource_name = "Crouch"
@@ -90,11 +122,69 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector3(0, 1, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head/Camera3D/banana_gun:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.475963, -0.236129, -0.387099)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head/Camera3D/banana_gun:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+resource_name = "idle"
+length = 3.0
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Camera3D/banana_gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(0.475963, -0.220868, -0.387099), Vector3(0.475963, -0.236129, -0.387099)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Camera3D/banana_gun:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(0.284698, 0, 0), Vector3(0, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uwk8q"]
 _data = {
 &"Crouch": SubResource("Animation_b2ed3"),
-&"RESET": SubResource("Animation_wkx32")
+&"RESET": SubResource("Animation_wkx32"),
+&"idle": SubResource("Animation_tuyoq"),
+&"shoot": SubResource("Animation_fjrip")
 }
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b2ed3"]
@@ -147,6 +237,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 [node name="Hook Raycast" type="RayCast3D" parent="Head/Camera3D"]
 target_position = Vector3(0, 0, -50)
 
+[node name="banana_gun" parent="Head/Camera3D" instance=ExtResource("2_tuyoq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.475963, -0.236129, -0.387099)
+script = ExtResource("3_smehm")
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="Head/Camera3D/banana_gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0438679, -0.133345)
+emitting = false
+amount = 1
+lifetime = 0.25
+one_shot = true
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_tuyoq")
+draw_pass_1 = SubResource("PlaneMesh_smehm")
+
 [node name="HookController" type="Node" parent="."]
 script = ExtResource("2_dqkch")
 
@@ -154,6 +258,7 @@ script = ExtResource("2_dqkch")
 libraries = {
 &"": SubResource("AnimationLibrary_uwk8q")
 }
+playback_default_blend_time = 0.05
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_b2ed3")
@@ -163,10 +268,10 @@ root_path = NodePath(".")
 replication_config = SubResource("SceneReplicationConfig_rpqav")
 script = ExtResource("2_qhqgy")
 
-[node name="ODM" type="Node3D" parent="."]
+[node name="Items" type="Node3D" parent="."]
 transform = Transform3D(-0.75, 0, -6.55671e-08, 0, 0.75, 0, 6.55671e-08, 0, -0.75, -0.025331, 1, 0.153343)
 
-[node name="HookRopeStart" type="Marker3D" parent="ODM"]
+[node name="HookRopeStart" type="Marker3D" parent="Items"]
 transform = Transform3D(-1.33333, 3.01689e-08, 1.12592e-07, 0, 1.2879, -0.345092, -1.16564e-07, -0.345092, -1.2879, -0.292669, 0.041883, 0.236053)
 
 [node name="HUD" type="CanvasLayer" parent="."]

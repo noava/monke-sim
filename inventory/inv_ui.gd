@@ -5,6 +5,7 @@ const Slot = preload("res://inventory/slot.tscn")
 @onready var item_grid: HBoxContainer = $MarginContainer/ItemGrid
 
 @onready var hook_controller: HookController = $"../../HookController"
+@onready var banana_gun: Node3D = $"../../Head/Camera3D/banana_gun"
 
 var equipped_item: SlotData = null
 
@@ -47,7 +48,10 @@ func equip_item(slot_index: int) -> void:
 			# Vine Grapple
 			hook_controller.is_enabled = (item_name == "Vine Grapple")
 			
-			# TODO: Gun
+			# Gun			
+			var is_gun: bool = item_name == "Gun"
+			banana_gun.rpc("set_enabled", is_gun)
+
 			
 			# Debugging
 			print("Equipped item from slot:", slot_index)
