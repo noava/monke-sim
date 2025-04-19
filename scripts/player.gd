@@ -27,6 +27,7 @@ var gravity = 9.8
 @export var grab_force = 10
 @export var release_force = 0.4
 var grab:RigidBody3D
+var label_instance: Label3D
 
 # Throw
 var throw_force = 20.0
@@ -116,7 +117,6 @@ func _physics_process(delta):
 	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
-	
 
 	# Grab
 	if Input.is_action_just_pressed("interact"):
@@ -134,6 +134,24 @@ func _physics_process(delta):
 
 			grab.apply_impulse(Vector3.ZERO, dir * throw_force)
 			release()
+	
+	# Show Grab Label
+	if grab_raycast.is_colliding() and  grab_raycast.get_collider() is RigidBody3D and not grab:
+		var target = grab_raycast.get_collider()
+		# Check if the label already exists
+		if not target.has_node("LookLabel"):
+			# Create the label
+			label_instance = Label3D.new()
+			label_instance.name = "LookLabel"
+			label_instance.text = "Press E to Pickup"
+			label_instance.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+			
+			label_instance.position = Vector3(0, 0.1, 0)
+
+
+			target.add_child(label_instance)
+	else:
+		remove_existing_labels()
 
 	move_and_slide()
 	
@@ -158,3 +176,8 @@ func stand_up():
 	
 func release():
 	grab = null
+
+func remove_existing_labels():
+	if label_instance and label_instance.is_inside_tree():
+		label_instance.queue_free()
+		label_instance = null
