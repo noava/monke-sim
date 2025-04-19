@@ -7,6 +7,9 @@ var peer = ENetMultiplayerPeer.new()
 @onready var ip_entry: LineEdit = %IPEntry
 @onready var join_btn: Button = %JoinBtn
 
+func _ready() -> void:
+	$UI.show()
+
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()

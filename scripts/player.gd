@@ -136,19 +136,23 @@ func _physics_process(delta):
 			release()
 	
 	# Show Grab Label
-	if grab_raycast.is_colliding() and  grab_raycast.get_collider() is RigidBody3D and not grab:
+	if grab_raycast.is_colliding() and  grab_raycast.get_collider() is Node3D and not grab:
 		var target = grab_raycast.get_collider()
 		# Check if the label already exists
 		if not target.has_node("LookLabel"):
 			# Create the label
 			label_instance = Label3D.new()
 			label_instance.name = "LookLabel"
-			label_instance.text = "Press E to Pickup"
 			label_instance.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+
+			if target.has_method("get_item_price"):
+				var price = target.item_price
+				label_instance.position = Vector3(0, 0.7, 0)
+				label_instance.text = "E to spend " + str(price) + " bananas"
+			else:
+				label_instance.position = Vector3(0, 0.1, 0)
+				label_instance.text = "E for uppies"
 			
-			label_instance.position = Vector3(0, 0.1, 0)
-
-
 			target.add_child(label_instance)
 	else:
 		remove_existing_labels()

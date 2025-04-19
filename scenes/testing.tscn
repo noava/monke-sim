@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dw37ibv584nkf"]
+[gd_scene load_steps=30 format=3 uid="uid://dw37ibv584nkf"]
 
 [ext_resource type="Script" uid="uid://comqbk36b4wvn" path="res://scripts/level.gd" id="1_j8asw"]
 [ext_resource type="Texture2D" uid="uid://c3gr08t11puja" path="res://assets/textures/Grass/Grass004_1K-JPG_Color.jpg" id="2_8mr64"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cpu6a4i6esy6b" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Roughness.jpg" id="10_pm4hl"]
 [ext_resource type="PackedScene" uid="uid://d1qobkjvefgp6" path="res://assets/models/banana.glb" id="13_yh20h"]
 [ext_resource type="PackedScene" uid="uid://cflj7hd6oules" path="res://assets/models/multiple_bananas.glb" id="14_uf0dc"]
+[ext_resource type="Script" uid="uid://btfnvv1uijtfp" path="res://scripts/shop_item.gd" id="15_ci1tm"]
 
 [sub_resource type="Gradient" id="Gradient_xuq1u"]
 colors = PackedColorArray(0, 0, 0.176471, 1, 0.0253638, 0.0253638, 0.0253638, 1)
@@ -187,6 +188,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26098, 0.759817, -5.52076)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Thang2"]
 transform = Transform3D(0.134592, 0, 0, 0, 0.093207, 0, 0, 0, 0.438847, 0.00350755, 0.0537121, -0.0132542)
 shape = SubResource("BoxShape3D_4y0hx")
+
+[node name="Shop" type="Node3D" parent="Map"]
+
+[node name="BuyGun" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.49304, 0.494617, 0)
+use_collision = true
+script = ExtResource("15_ci1tm")
+item_id = "gun"
+item_price = 12
+
+[node name="ThisItemDoesntExist" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.49304, 0.494617, 4.13302)
+use_collision = true
+script = ExtResource("15_ci1tm")
+item_id = "gunsss"
+item_price = 30
+
+[node name="BuyGrapple" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9861, 0.989233, 0)
+use_collision = true
+script = ExtResource("15_ci1tm")
+item_id = "vine_grapple"
+item_price = 50
 
 [node name="Players" type="Node3D" parent="."]
 

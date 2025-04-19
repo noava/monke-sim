@@ -6,9 +6,10 @@ const Slot = preload("res://inventory/slot.tscn")
 
 @onready var hook_controller: HookController = $"../../HookController"
 @onready var banana_gun: Node3D = $"../../Head/Camera3D/banana_gun"
+@onready var interact_ray: RayCast3D = $"../../Head/Camera3D/Grab Ray"
 
 var equipped_item: SlotData = null
-
+var bananas: int = 42
 
 func populate_item_grid(slot_datas: Array[SlotData]) -> void:
 	for child in item_grid.get_children():
@@ -32,6 +33,9 @@ func _input(_event: InputEvent) -> void:
 	for number in range(10):
 		if Input.is_action_just_pressed("number_%d" % number):
 			equip_item(number)
+	
+	if Input.is_action_just_pressed("interact"):
+		try_purchase()
 
 func equip_item(slot_index: int) -> void:
 	for i in item_grid.get_child_count():
@@ -58,3 +62,32 @@ func equip_item(slot_index: int) -> void:
 			# Debugging
 			print("Equipped item from slot:", slot_index)
 			print("Equipped item:", item_name)
+
+func try_purchase():
+	if interact_ray.is_colliding():
+		var shop_item = interact_ray.get_collider()
+		if shop_item and shop_item.has_method("get_item_price"):
+			var price = shop_item.item_price
+			var item_id = shop_item.item_id
+			
+			if bananas >= price:
+					bananas -= price
+					add_to_hotbar(item_id)
+
+					shop_item.queue_free()
+			else:
+					# TODO: Show UI message. A console?
+					print("Not enough bananas!")
+
+func add_to_hotbar(item_id: String):
+	for i in range(item_grid.get_child_count()):
+		var slot = item_grid.get_child(i)
+		if slot.get_slot_data() == null:
+			var new_data = SlotData.new()
+			new_data.item_id = item_id
+			new_data.item_data = load("res://inventory/items/%s.tres" % item_id)
+			slot.set_slot_data(new_data)
+			print("Added ", item_id, " to hotbar at slot ", i + 1)
+			return
+	# TODO: Show UI message. A console?
+	print("Hotbar full!")
