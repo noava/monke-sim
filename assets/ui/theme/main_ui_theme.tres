@@ -1,0 +1,36 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c87d05qpvxeyn"]
+
+[ext_resource type="StyleBox" uid="uid://c66nd2g0t1u3q" path="res://assets/ui/theme/disabled_button.tres" id="1_r5yyo"]
+[ext_resource type="StyleBox" uid="uid://butvx7cx2eu6k" path="res://assets/ui/theme/hover_button.tres" id="2_fwfvj"]
+[ext_resource type="StyleBox" uid="uid://btx6uuu6bsnr3" path="res://assets/ui/theme/normal_button.tres" id="3_yaoff"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j6a7c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i1gbh"]
+
+[resource]
+Button/colors/font_color = Color(0.964706, 0.85098, 0.737255, 1)
+Button/colors/font_disabled_color = Color(0.964706, 0.85098, 0.737255, 0.866667)
+Button/colors/font_focus_color = Color(0.964706, 0.85098, 0.737255, 1)
+Button/colors/font_hover_color = Color(0.917647, 0.635294, 0.356863, 1)
+Button/colors/font_hover_pressed_color = Color(0.964706, 0.85098, 0.737255, 1)
+Button/colors/font_pressed_color = Color(0.917647, 0.635294, 0.356863, 1)
+Button/colors/icon_hover_color = Color(0.917647, 0.635294, 0.356863, 1)
+Button/colors/icon_hover_pressed_color = Color(0.917647, 0.635294, 0.356863, 1)
+Button/colors/icon_normal_color = Color(0.964706, 0.85098, 0.737255, 1)
+Button/colors/icon_pressed_color = Color(0.917647, 0.635294, 0.356863, 1)
+Button/styles/disabled = ExtResource("1_r5yyo")
+Button/styles/focus = SubResource("StyleBoxEmpty_j6a7c")
+Button/styles/hover = ExtResource("2_fwfvj")
+Button/styles/normal = ExtResource("3_yaoff")
+Button/styles/pressed = ExtResource("2_fwfvj")
+Label/colors/font_color = Color(0.964706, 0.85098, 0.737255, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.627451)
+Label/font_sizes/font_size = 32
+LineEdit/colors/caret_color = Color(0.917647, 0.635294, 0.356863, 1)
+LineEdit/colors/font_color = Color(0.917647, 0.635294, 0.356863, 1)
+LineEdit/colors/font_placeholder_color = Color(0.964706, 0.85098, 0.737255, 0.6)
+LineEdit/colors/font_selected_color = Color(0.964706, 0.85098, 0.737255, 1)
+LineEdit/colors/selection_color = Color(0.5, 0.5, 0.5, 1)
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_i1gbh")
+LineEdit/styles/normal = ExtResource("3_yaoff")

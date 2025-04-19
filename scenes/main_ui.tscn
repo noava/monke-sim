@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://wau7ipdwnh5o"]
+[gd_scene load_steps=7 format=3 uid="uid://wau7ipdwnh5o"]
 
 [ext_resource type="Script" uid="uid://d1l3aka2qhdeg" path="res://scripts/multiplayer.gd" id="1_fnul3"]
+[ext_resource type="Script" uid="uid://xuhj0rp7orsb" path="res://scenes/main_menu.gd" id="2_513t2"]
+[ext_resource type="Theme" uid="uid://c87d05qpvxeyn" path="res://assets/ui/theme/main_ui_theme.tres" id="2_i1gbh"]
+[ext_resource type="Texture2D" uid="uid://defexvqhy3qwh" path="res://assets/ui/monke_bg.png" id="5_i1gbh"]
+[ext_resource type="Script" uid="uid://dv3cgln4j4klb" path="res://assets/ui/theme/hover_slide.gd" id="5_scoti"]
+[ext_resource type="Texture2D" uid="uid://dawofv68y406b" path="res://assets/ui/arrow_back.svg" id="8_okuri"]
 
 [node name="multiplayer" type="Node"]
 script = ExtResource("1_fnul3")
@@ -19,41 +24,299 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_i1gbh")
+script = ExtResource("2_513t2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+[node name="TextureRect" type="TextureRect" parent="UI"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -85.0
-offset_top = -68.0
-offset_right = 85.0
-offset_bottom = 68.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("5_i1gbh")
+expand_mode = 1
+stretch_mode = 6
 
-[node name="NameEntry" type="LineEdit" parent="UI/VBoxContainer"]
+[node name="MainMenu" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -60.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -136.0
+offset_right = 120.0
+grow_vertical = 0
+alignment = 2
+
+[node name="HostBtn" type="Button" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+alignment = 0
+
+[node name="HoverSlide" type="Control" parent="UI/MainMenu/VBoxContainer/HostBtn"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -65.0
+offset_top = -162.0
+offset_right = -25.0
+offset_bottom = -122.0
+script = ExtResource("5_scoti")
+
+[node name="JoinBtn" type="Button" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+alignment = 0
+
+[node name="HoverSlide" type="Control" parent="UI/MainMenu/VBoxContainer/JoinBtn"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -65.0
+offset_top = -162.0
+offset_right = -25.0
+offset_bottom = -122.0
+script = ExtResource("5_scoti")
+
+[node name="How To Play" type="Button" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "How To Play"
+alignment = 0
+
+[node name="HoverSlide" type="Control" parent="UI/MainMenu/VBoxContainer/How To Play"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -65.0
+offset_top = -162.0
+offset_right = -25.0
+offset_bottom = -122.0
+script = ExtResource("5_scoti")
+
+[node name="Credits" type="Button" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+alignment = 0
+
+[node name="HoverSlide" type="Control" parent="UI/MainMenu/VBoxContainer/Credits"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -65.0
+offset_top = -162.0
+offset_right = -25.0
+offset_bottom = -122.0
+script = ExtResource("5_scoti")
+
+[node name="Quit" type="Button" parent="UI/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+alignment = 0
+
+[node name="HoverSlide" type="Control" parent="UI/MainMenu/VBoxContainer/Quit"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -65.0
+offset_top = -162.0
+offset_right = -25.0
+offset_bottom = -122.0
+script = ExtResource("5_scoti")
+
+[node name="Host" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -60.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Host"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -83.0
+offset_right = 120.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="UI/Host/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.635294, 0.356863, 1)
+text = "Host"
+
+[node name="HostNameEntry" type="LineEdit" parent="UI/Host/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Name"
-alignment = 1
 
-[node name="HostBtn" type="Button" parent="UI/VBoxContainer"]
+[node name="HostBtn" type="Button" parent="UI/Host/VBoxContainer"]
 layout_mode = 2
-text = "Host"
+text = "Host Game"
+alignment = 0
 
-[node name="IPEntry" type="LineEdit" parent="UI/VBoxContainer"]
+[node name="HoverSlide" type="Control" parent="UI/Host/VBoxContainer/HostBtn"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -65.0
+offset_top = -162.0
+offset_right = -25.0
+offset_bottom = -122.0
+script = ExtResource("5_scoti")
+
+[node name="Join" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -60.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Join"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -110.0
+offset_right = 120.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="UI/Join/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.635294, 0.356863, 1)
+text = "Join"
+
+[node name="JoinNameEntry" type="LineEdit" parent="UI/Join/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Name"
+
+[node name="IPEntry" type="LineEdit" parent="UI/Join/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Enter IP"
-alignment = 1
 
-[node name="JoinBtn" type="Button" parent="UI/VBoxContainer"]
+[node name="JoinBtn" type="Button" parent="UI/Join/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Join"
+text = "Join Game"
+alignment = 0
 
-[connection signal="pressed" from="UI/VBoxContainer/HostBtn" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="UI/VBoxContainer/JoinBtn" to="." method="_on_join_pressed"]
+[node name="HoverSlide" type="Control" parent="UI/Join/VBoxContainer/JoinBtn"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -65.0
+offset_top = -162.0
+offset_right = -25.0
+offset_bottom = -122.0
+script = ExtResource("5_scoti")
+
+[node name="HowToPlay" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Credits" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -60.0
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Credits"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -165.0
+offset_right = 145.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="UI/Credits/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.917647, 0.635294, 0.356863, 1)
+theme_override_font_sizes/font_size = 48
+text = "Credits"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Credits/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="UI/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Noava"
+vertical_alignment = 1
+
+[node name="Contribution" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.6864, 0.5928, 1)
+theme_override_font_sizes/font_size = 16
+text = "- adwdawd"
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="UI/Credits/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Limorinho"
+vertical_alignment = 1
+
+[node name="Contribution" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer/HBoxContainer2"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.780392, 0.686275, 0.592157, 1)
+theme_override_font_sizes/font_size = 16
+text = "- lalal"
+
+[node name="HomeBtn" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HomeBtn" type="Button" parent="UI/HomeBtn"]
+clip_contents = true
+custom_minimum_size = Vector2(-4.955, 0)
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 66.0
+offset_bottom = 58.0
+icon = ExtResource("8_okuri")
+flat = true
+expand_icon = true
+
+[connection signal="pressed" from="UI/MainMenu/VBoxContainer/HostBtn" to="UI" method="_on_host_btn_pressed"]
+[connection signal="pressed" from="UI/MainMenu/VBoxContainer/JoinBtn" to="UI" method="_on_join_btn_pressed"]
+[connection signal="pressed" from="UI/MainMenu/VBoxContainer/How To Play" to="UI" method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="UI/MainMenu/VBoxContainer/Credits" to="UI" method="_on_credits_pressed"]
+[connection signal="pressed" from="UI/MainMenu/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]
+[connection signal="pressed" from="UI/Host/VBoxContainer/HostBtn" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="UI/Join/VBoxContainer/JoinBtn" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="UI/HomeBtn/HomeBtn" to="UI" method="_on_home_btn_pressed"]
