@@ -7,11 +7,13 @@
 
 [sub_resource type="Resource" id="Resource_knutq"]
 script = ExtResource("2_h4yv7")
+item_id = ""
 item_data = ExtResource("3_gjtu6")
 metadata/_custom_type_script = "uid://cidpd24yqp6no"
 
 [sub_resource type="Resource" id="Resource_7fuvg"]
 script = ExtResource("2_h4yv7")
+item_id = ""
 item_data = ExtResource("4_knutq")
 metadata/_custom_type_script = "uid://cidpd24yqp6no"
 

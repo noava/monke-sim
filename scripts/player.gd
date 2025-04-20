@@ -48,6 +48,11 @@ var throw_force = 20.0
 @onready var hook_raycast: RayCast3D = $"Head/Camera3D/Hook Raycast"
 @onready var hook_controller: HookController = $HookController
 
+@export var player_name: String = "Unnamed" :
+	set(value):
+		player_name = value
+		%NameLabel3D.text = value
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 		
@@ -56,6 +61,8 @@ func _ready():
 		
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
+	
+	player_name = player_name
 	
 func _unhandled_input(event):
 	if not is_multiplayer_authority(): return

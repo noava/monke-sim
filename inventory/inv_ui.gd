@@ -37,6 +37,11 @@ func _ready() -> void:
 	# Updates the banana count in UI
 	bananas = bananas
 	
+	if is_multiplayer_authority():
+		$"..".show()
+	else:
+		$"..".hide()
+	
 func _input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return
 
