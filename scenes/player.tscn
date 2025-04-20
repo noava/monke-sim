@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=29 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
@@ -216,6 +216,28 @@ bg_color = Color(0.727778, 0, 0.286431, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4r1p"]
 bg_color = Color(0.431373, 0.67451, 0.14902, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2wvv"]
+bg_color = Color(0.47, 0.370203, 0.00939999, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.748686, 0.592586, 0.0178003, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 10
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3v2ag"]
+font_color = Color(0.999708, 0.954249, 0.835441, 1)
+outline_size = 1
+outline_color = Color(0.380934, 0.301044, 0.00826607, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.458824)
+
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_g2els")
 
@@ -322,6 +344,33 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_y4r1p")
 max_value = 10.0
 value = 10.0
 show_percentage = false
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -63.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 51.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_d2wvv")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="BananaCount" type="Label" parent="HUD/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_3v2ag")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+ellipsis_char = "+"
 
 [node name="NameLabel3D" type="Label3D" parent="."]
 unique_name_in_owner = true

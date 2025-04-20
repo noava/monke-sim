@@ -7,10 +7,17 @@ const Slot = preload("res://inventory/slot.tscn")
 @onready var hook_controller: HookController = $"../../HookController"
 @onready var banana_gun: Node3D = $"../../Head/Camera3D/banana_gun"
 @onready var interact_ray: RayCast3D = $"../../Head/Camera3D/Grab Ray"
+@onready var banana_count: Label = $"../PanelContainer/MarginContainer/BananaCount"
 
 var equipped_item: SlotData = null
-var bananas: int = 42
-
+var bananas: int = 42:
+	get:
+		return bananas
+	set(value):
+		bananas = value
+		print(bananas)
+		banana_count.text = str(bananas)
+		
 func populate_item_grid(slot_datas: Array[SlotData]) -> void:
 	for child in item_grid.get_children():
 		child.queue_free()
@@ -26,6 +33,9 @@ func populate_item_grid(slot_datas: Array[SlotData]) -> void:
 func _ready() -> void:	
 	var inv_data = preload("res://inventory/player_inv.tres")
 	populate_item_grid(inv_data.slot_datas)
+	
+	# Updates the banana count in UI
+	bananas = bananas
 	
 func _input(_event: InputEvent) -> void:
 	if not is_multiplayer_authority(): return
