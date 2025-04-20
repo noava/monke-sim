@@ -31,7 +31,7 @@ func start_game():
 	$UI.hide()
 	
 	if multiplayer.is_server():
-		change_level.call_deferred(load("res://scenes/testing.tscn"))
+		change_level.call_deferred(load("res://scenes/world.tscn"))
 		
 func change_level(scene: PackedScene):
 	var level = $Level
