@@ -1,7 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://hoosnlwlntjw"]
+[gd_scene load_steps=30 format=3 uid="uid://dw37ibv584nkf"]
 
 [ext_resource type="Script" uid="uid://comqbk36b4wvn" path="res://scripts/level.gd" id="1_j8asw"]
+[ext_resource type="Texture2D" uid="uid://c3gr08t11puja" path="res://assets/textures/Grass/Grass004_1K-JPG_Color.jpg" id="2_8mr64"]
 [ext_resource type="Script" uid="uid://2dy8sdbgw5r1" path="res://scripts/moon.gd" id="2_vx8f3"]
+[ext_resource type="Texture2D" uid="uid://m2wrlx1mg3l6" path="res://assets/textures/Grass/Grass004_1K-JPG_AmbientOcclusion.jpg" id="3_utrvu"]
+[ext_resource type="Texture2D" uid="uid://6gftjmntpomm" path="res://assets/textures/Grass/Grass004_1K-JPG_NormalGL.jpg" id="4_yh20h"]
+[ext_resource type="Texture2D" uid="uid://x2b41rys2ub3" path="res://assets/textures/Grass/Grass004_1K-JPG_Roughness.jpg" id="5_uf0dc"]
 [ext_resource type="Texture2D" uid="uid://dsl7iowddlc54" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Color.jpg" id="6_j8asw"]
 [ext_resource type="Material" uid="uid://ctgnc30pqm7vq" path="res://assets/materials/brick.tres" id="7_5qbqa"]
 [ext_resource type="Texture2D" uid="uid://6btrmxbfxte2" path="res://assets/textures/Bricks/Bricks059_1K-JPG_AmbientOcclusion.jpg" id="7_fme2p"]
@@ -10,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cpu6a4i6esy6b" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Roughness.jpg" id="10_pm4hl"]
 [ext_resource type="PackedScene" uid="uid://d1qobkjvefgp6" path="res://assets/models/banana.glb" id="13_yh20h"]
 [ext_resource type="PackedScene" uid="uid://cflj7hd6oules" path="res://assets/models/multiple_bananas.glb" id="14_uf0dc"]
+[ext_resource type="Script" uid="uid://btfnvv1uijtfp" path="res://scripts/shop_item.gd" id="15_ci1tm"]
 
 [sub_resource type="Gradient" id="Gradient_xuq1u"]
 colors = PackedColorArray(0, 0, 0.176471, 1, 0.0253638, 0.0253638, 0.0253638, 1)
@@ -29,6 +34,16 @@ background_mode = 2
 sky = SubResource("Sky_8e680")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5cjrv"]
+albedo_texture = ExtResource("2_8mr64")
+roughness = 0.2
+roughness_texture = ExtResource("5_uf0dc")
+normal_enabled = true
+normal_texture = ExtResource("4_yh20h")
+ao_enabled = true
+ao_texture = ExtResource("3_utrvu")
+uv1_scale = Vector3(5, 5, 5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utrvu"]
 albedo_texture = ExtResource("6_j8asw")
@@ -106,26 +121,29 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [node name="Testing" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.108667, 2.86102e-06, 0.00856781)
 script = ExtResource("1_j8asw")
 
 [node name="Map" type="Node3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.23358, 0, 0)
 script = ExtResource("2_vx8f3")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.8248, -1.27367, 33.2059)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00168753, 2.61333, 0.0221152)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Map"]
 environment = SubResource("Environment_js7pq")
 
+[node name="CSGBox3D" type="CSGBox3D" parent="Map"]
+transform = Transform3D(57.0539, 0, 0, 0, 0.113385, 0, 0, 0, 41.5474, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_5cjrv")
+use_collision = true
+
 [node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
-transform = Transform3D(5.31307, 0, 0, 0, 2.70129, 0, 0, 0, 5.66025, -61.562, -4.67658, 49.946)
+transform = Transform3D(5.31307, 0, 0, 0, 2.70129, 0, 0, 0, 5.66025, 0.0172362, 1.35913, -12.6413)
 material_override = ExtResource("7_5qbqa")
 use_collision = true
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Map"]
-transform = Transform3D(5.31307, 0, 0, 0, 2.70129, 0, 0, 0, 5.66025, -62.942, 4.12215, 58.166)
+transform = Transform3D(5.31307, 0, 0, 0, 2.70129, 0, 0, 0, 5.66025, 13.0641, 10.2298, -5.20538)
 material_override = SubResource("StandardMaterial3D_utrvu")
 use_collision = true
 size = Vector3(0.412231, 7.53113, 0.402832)
@@ -134,14 +152,12 @@ size = Vector3(0.412231, 7.53113, 0.402832)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.759817, -5.52076)
 
 [node name="banana" parent="Map/Thang" instance=ExtResource("13_yh20h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.6314, -6.62468, 60.9295)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Thang"]
-transform = Transform3D(0.07, 0, 0, 0, 0.093, 0, 0, 0, 0.439, -55.0862, -6.26799, 59.3955)
+transform = Transform3D(0.07, 0, 0, 0, 0.093, 0, 0, 0, 0.439, -0.00373697, 0.0394471, -0.0132542)
 shape = SubResource("BoxShape3D_4y0hx")
 
 [node name="SpawnPoints" type="Node3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -54.5283, -5.44271, 55.1326)
 
 [node name="Spawn0" type="Node3D" parent="Map/SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.54202, 0, -7.33269)
@@ -168,14 +184,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08442, -5.31639)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26098, 0.759817, -5.52076)
 
 [node name="multiple_bananas" parent="Map/Thang2" instance=ExtResource("14_uf0dc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.0562, 0, -1.43051e-06)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Thang2"]
-transform = Transform3D(0.134592, 0, 0, 0, 0.093207, 0, 0, 0, 0.438847, -110.968, 0.0537121, -0.0132589)
+transform = Transform3D(0.134592, 0, 0, 0, 0.093207, 0, 0, 0, 0.438847, 0.00350755, 0.0537121, -0.0132542)
 shape = SubResource("BoxShape3D_4y0hx")
 
+[node name="Shop" type="Node3D" parent="Map"]
+
+[node name="BuyGun" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.49304, 0.494617, 0)
+use_collision = true
+script = ExtResource("15_ci1tm")
+item_id = "gun"
+item_price = 12
+
+[node name="ThisItemDoesntExist" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.49304, 0.494617, 4.13302)
+use_collision = true
+script = ExtResource("15_ci1tm")
+item_id = "gunsss"
+item_price = 30
+
+[node name="BuyGrapple" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9861, 0.989233, 0)
+use_collision = true
+script = ExtResource("15_ci1tm")
+item_id = "vine_grapple"
+item_price = 50
+
 [node name="Players" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.6878, -5.09732, 55.1781)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://dox504m0gs4gt")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://wau7ipdwnh5o"]
 
 [ext_resource type="Script" uid="uid://d1l3aka2qhdeg" path="res://scripts/multiplayer.gd" id="1_fnul3"]
-[ext_resource type="Script" uid="uid://xuhj0rp7orsb" path="res://scenes/main_menu.gd" id="2_513t2"]
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="2_513t2"]
 [ext_resource type="Theme" uid="uid://c87d05qpvxeyn" path="res://assets/ui/theme/main_ui_theme.tres" id="2_i1gbh"]
 [ext_resource type="Texture2D" uid="uid://defexvqhy3qwh" path="res://assets/ui/monke_bg.png" id="5_i1gbh"]
 [ext_resource type="Script" uid="uid://dv3cgln4j4klb" path="res://assets/ui/theme/hover_slide.gd" id="5_scoti"]
@@ -13,7 +13,7 @@ script = ExtResource("1_fnul3")
 [node name="Level" type="Node" parent="."]
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://hoosnlwlntjw")
+_spawnable_scenes = PackedStringArray("uid://dpit6biy0n36r")
 spawn_path = NodePath("../Level")
 spawn_limit = 1
 
