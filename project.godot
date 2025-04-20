@@ -37,6 +37,10 @@ folder_colors={
 
 theme/custom_font="uid://ctg8qeeo8p7on"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+
 [input]
 
 move_forward={
