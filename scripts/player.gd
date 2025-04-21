@@ -32,14 +32,26 @@ var label_instance: Label3D
 # Throw
 var throw_force = 20.0
 
+# Hold
+@export var is_holding: bool = false
+
 # Crosshair
 @onready var HOOK_AVAILIBLE_TEXTURE : CompressedTexture2D = preload("res://assets/sprites/hook_available.png")
 @onready var HOOK_NOT_AVAILIBLE_TEXTURE : CompressedTexture2D = preload("res://assets/sprites/crosshair.png")
 @onready var crosshair: TextureRect = $HUD/Crosshair
 
-@export var ANIMATIONPLAYER : AnimationPlayer
+# Animations
+@onready var anim_tree: AnimationTree = $player_model/AnimationTree
 
-@onready var armature: Node3D = $player_model
+enum {IDLE, JUMP, HOLD}
+@export var curAnim: int = IDLE
+
+@export var blend_speed = 15
+
+var jump_val = 0
+var hold_val = 0
+
+@onready var player_model: Node3D = $player_model
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var input: MultiplayerSynchronizer = $PlayerInput
@@ -61,6 +73,7 @@ func _ready():
 		
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
+	player_model.visible = false
 	
 	player_name = player_name
 	
@@ -72,6 +85,8 @@ func _unhandled_input(event):
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-89.9), deg_to_rad(89.9))
+		
+	player_model.rotation.y = head.rotation.y + PI
 
 func _physics_process(delta):
 	if not is_multiplayer_authority(): return
@@ -85,7 +100,7 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 		
 	input.jumping = false
-	
+
 	# Sprint
 	if Input.is_action_pressed("sprint") and not is_crouching:
 		speed = SPRINT_SPEED
@@ -108,7 +123,6 @@ func _physics_process(delta):
 		if direction:
 			velocity.x = direction.x * speed
 			velocity.z = direction.z * speed
-			armature.rotation.y = lerp_angle(armature.rotation.y, atan2(-velocity.x, -velocity.z), LERP_VAL)
 		else:
 			velocity.x = lerp(velocity.x, direction.x * speed, delta * 7.0)
 			velocity.z = lerp(velocity.z, direction.z * speed, delta * 7.0)
@@ -166,6 +180,9 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
+	update_animation_states()
+	handle_animations(delta)
+	
 	crosshair.texture = HOOK_AVAILIBLE_TEXTURE if hook_raycast.is_colliding() and not hook_controller.is_hook_launched and hook_controller.is_enabled else HOOK_NOT_AVAILIBLE_TEXTURE
 
 
@@ -175,15 +192,6 @@ func _headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
-
-func crouch():
-	if not is_crouching:
-		is_crouching = true
-		ANIMATIONPLAYER.play("Crouch", -1, CROUCH_ANIM_SPEED)
-
-func stand_up():
-	is_crouching = false
-	ANIMATIONPLAYER.play("Crouch", -1, -CROUCH_ANIM_SPEED, true)
 	
 func release():
 	grab = null
@@ -192,3 +200,33 @@ func remove_existing_labels():
 	if label_instance and label_instance.is_inside_tree():
 		label_instance.queue_free()
 		label_instance = null
+
+@rpc("call_local")
+func set_holditem_enabled(value: bool):
+	is_holding = value
+
+func handle_animations(delta):
+	match curAnim:
+		IDLE:
+			jump_val = lerpf(jump_val, 0, blend_speed * delta)
+			hold_val = lerpf(hold_val, 0, blend_speed * delta)
+		JUMP:
+			jump_val = lerpf(jump_val, 1, blend_speed * delta)
+			hold_val = lerpf(hold_val, 0, blend_speed * delta)
+		HOLD:
+			jump_val = lerpf(jump_val, 0, blend_speed * delta)
+			hold_val = lerpf(hold_val, 1, blend_speed * delta)
+
+	update_tree()
+
+func update_tree():
+	anim_tree["parameters/Jump/blend_amount"] = jump_val
+	anim_tree["parameters/Hold/blend_amount"] = hold_val
+
+func update_animation_states():
+	if is_on_floor():
+		curAnim = IDLE
+		if is_holding:
+			curAnim = HOLD
+	else:
+		curAnim = JUMP

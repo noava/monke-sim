@@ -8,6 +8,7 @@ const Slot = preload("res://inventory/slot.tscn")
 @onready var banana_gun: Node3D = $"../../Head/Camera3D/banana_gun"
 @onready var interact_ray: RayCast3D = $"../../Head/Camera3D/Grab Ray"
 @onready var banana_count: Label = $"../PanelContainer/MarginContainer/BananaCount"
+@onready var player: CharacterBody3D = $"../.."
 
 var equipped_item: SlotData = null
 var bananas: int = 42:
@@ -65,7 +66,11 @@ func equip_item(slot_index: int) -> void:
 			equipped_item = slot.get_slot_data()
 			
 			var item_name = equipped_item.item_data.name if equipped_item and equipped_item.item_data else ""
-
+			
+			# Hold Item Pose
+			var is_holdingitem: bool = item_name != ""
+			player.rpc("set_holditem_enabled", is_holdingitem)
+			
 			# Vine Grapple
 			hook_controller.is_enabled = (item_name == "Vine Grapple")
 			
