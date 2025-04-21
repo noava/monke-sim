@@ -2,6 +2,7 @@ extends Node
 
 const PORT = 135
 var peer = ENetMultiplayerPeer.new()
+var level_scene = preload("res://scenes/world.tscn")
 @onready var host_name_entry: LineEdit = %HostNameEntry
 @onready var join_name_entry: LineEdit = %JoinNameEntry
 @onready var ip_entry: LineEdit = %IPEntry
@@ -11,6 +12,8 @@ var player_display_name: String = "":
 
 func _ready() -> void:
 	$UI.show()
+	
+
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("quit"):
@@ -31,7 +34,7 @@ func start_game():
 	$UI.hide()
 	
 	if multiplayer.is_server():
-		change_level.call_deferred(load("res://scenes/testing.tscn"))
+		change_level.call_deferred(level_scene)
 		
 func change_level(scene: PackedScene):
 	var level = $Level

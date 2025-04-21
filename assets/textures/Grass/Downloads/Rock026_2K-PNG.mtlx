@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<materialx version="1.38" fileprefix="./">
+  <standard_surface xpos="6.159420" ypos="-1.879310" type="surfaceshader" name="Rock026_2K_PNG_StandardSurface">
+    <input value="0" type="float" name="specular" />
+    <input value="1" type="float" name="coat" />
+    <input value="1, 1, 1" type="color3" name="coat_color" />
+    <input value="1" type="float" name="base" />
+    <input nodename="Rock026_2K_PNG_Color" type="color3" name="base_color" />
+    <input nodename="normalmap" type="vector3" name="normal" />
+    <input nodename="normalmap" type="vector3" name="coat_normal" />
+    <input nodename="Rock026_2K_PNG_Roughness" type="float" name="specular_roughness" />
+    <input nodename="Rock026_2K_PNG_Roughness" type="float" name="coat_roughness" />
+  </standard_surface>
+  <surfacematerial xpos="8.695652" ypos="0.000000" type="material" name="Rock026_2K_PNG">
+    <input nodename="Rock026_2K_PNG_StandardSurface" type="surfaceshader" name="surfaceshader" />
+    <input nodename="displacement" type="displacementshader" name="displacementshader" />
+  </surfacematerial>
+  <tiledimage xpos="3.623188" ypos="-3.103448" type="color3" name="Rock026_2K_PNG_Color">
+    <input value="Rock026_2K-PNG_Color.png" colorspace="srgb_texture" type="filename" name="file" />
+    <input value="1.0, 1.0" type="vector2" name="uvtiling" />
+  </tiledimage>
+  <tiledimage xpos="3.623188" ypos="5.163793" type="float" name="Rock026_2K_PNG_Displacement">
+    <input value="Rock026_2K-PNG_Displacement.png" type="filename" name="file" />
+    <input value="1.0, 1.0" type="vector2" name="uvtiling" />
+  </tiledimage>
+  <displacement xpos="6.159420" ypos="1.879310" type="displacementshader" name="displacement">
+    <input nodename="Rock026_2K_PNG_Displacement" type="float" name="displacement" />
+    <input value="1.0" type="float" name="scale" />
+  </displacement>
+  <tiledimage xpos="1.086957" ypos="0.879310" type="vector3" name="Rock026_2K_PNG_NormalGL">
+    <input value="Rock026_2K-PNG_NormalGL.png" type="filename" name="file" />
+    <input value="1.0, 1.0" type="vector2" name="uvtiling" />
+  </tiledimage>
+  <normalmap xpos="3.623188" ypos="3.586207" type="vector3" name="normalmap">
+    <input nodename="Rock026_2K_PNG_NormalGL" type="vector3" name="in" />
+    <input value="1.0" type="float" name="scale" />
+  </normalmap>
+  <tiledimage xpos="3.623188" ypos="-0.413793" type="float" name="Rock026_2K_PNG_Roughness">
+    <input value="Rock026_2K-PNG_Roughness.png" type="filename" name="file" />
+    <input value="1.0, 1.0" type="vector2" name="uvtiling" />
+  </tiledimage>
+</materialx>
