@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl4kuaxya8fje"]
+
+[ext_resource type="Script" uid="uid://5jghanjf831m" path="res://inventory/slot.gd" id="1_u4i3g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4i3g"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.664512, 0.835275, 0.873192, 1)
+border_blend = true
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_u4i3g")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Highlight" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u4i3g")

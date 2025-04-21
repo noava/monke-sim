@@ -22,9 +22,14 @@ func add_player(id: int):
 
 	var pos := Vector2.from_angle(randf() * 2 * PI)
 	character.position = Vector3(pos.x * SPAWN_RANDOM * randf(), 0, pos.y * SPAWN_RANDOM * randf())
+	
 	character.name = str(id)
+	character.player_name = "Player " + str(id)
+	# TODO Fix update player names for non hosts. Also add player_display_name variable somehow
+	
 	$Players.add_child(character, true)
-	print("Added player:", id, " at ", character.position)
+
+	print("Added player:", character.player_name, " at ", character.position)
 
 
 func del_player(id: int):

@@ -3,7 +3,7 @@ extends Node3D
 var moon_distance := 1000.0
 var is_night := false
 
-func _process(delta):
+func _process(_delta):
 	var sun_dir = $DirectionalLight3D.global_transform.basis.z.normalized()
 	var moon_pos = -sun_dir * moon_distance
 	$Moon.global_transform.origin = global_transform.origin + moon_pos

@@ -1,9 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=29 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://s2tb0yomgv11" path="res://scripts/player_input.gd" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://p78nvnxpksgh" path="res://assets/models/banana_gun.glb" id="2_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://mqqqq7xb03a" path="res://assets/sprites/star_05.png" id="3_fjrip"]
+[ext_resource type="Script" uid="uid://dhx3vun3cc8oe" path="res://scripts/banana_gun.gd" id="3_smehm"]
 [ext_resource type="Texture2D" uid="uid://cskw882fffi36" path="res://assets/sprites/hook_available.png" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://cchpdf1x63oa5" path="res://inventory/inv_ui.tscn" id="6_tuyoq"]
+[ext_resource type="Script" uid="uid://d04thcbw25pd0" path="res://scripts/health_component.gd" id="9_ur7pv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6fml"]
 albedo_color = Color(0.823039, 0.413615, 0.205021, 1)
@@ -11,6 +16,35 @@ albedo_color = Color(0.823039, 0.413615, 0.205021, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_3li8b"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gntrk"]
+
+[sub_resource type="Gradient" id="Gradient_fjrip"]
+offsets = PackedFloat32Array(0, 0.227273, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_smehm"]
+gradient = SubResource("Gradient_fjrip")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tuyoq"]
+angle_min = 45.0
+angle_max = 45.0
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_smehm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjrip"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.874915, 0.55899, 8.85606e-06, 1)
+albedo_texture = ExtResource("3_fjrip")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_smehm"]
+material = SubResource("StandardMaterial3D_fjrip")
+size = Vector2(0.5, 0.5)
+orientation = 2
 
 [sub_resource type="Animation" id="Animation_b2ed3"]
 resource_name = "Crouch"
@@ -89,11 +123,69 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector3(0, 1, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head/Camera3D/banana_gun:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.475963, -0.236129, -0.387099)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head/Camera3D/banana_gun:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+resource_name = "idle"
+length = 3.0
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head/Camera3D/banana_gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(0.475963, -0.220868, -0.387099), Vector3(0.475963, -0.236129, -0.387099)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head/Camera3D/banana_gun:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(0.284698, 0, 0), Vector3(0, 0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uwk8q"]
 _data = {
-"Crouch": SubResource("Animation_b2ed3"),
-"RESET": SubResource("Animation_wkx32")
+&"Crouch": SubResource("Animation_b2ed3"),
+&"RESET": SubResource("Animation_wkx32"),
+&"idle": SubResource("Animation_tuyoq"),
+&"shoot": SubResource("Animation_fjrip")
 }
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b2ed3"]
@@ -112,11 +204,42 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("Head:rotation")
 properties/4/spawn = true
 properties/4/replication_mode = 1
+properties/5/path = NodePath("NameLabel3D:text")
+properties/5/spawn = true
+properties/5/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rpqav"]
 properties/0/path = NodePath(".:input_direction")
 properties/0/spawn = false
 properties/0/replication_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur7pv"]
+bg_color = Color(0.727778, 0, 0.286431, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4r1p"]
+bg_color = Color(0.431373, 0.67451, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2wvv"]
+bg_color = Color(0.47, 0.370203, 0.00939999, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.748686, 0.592586, 0.0178003, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 10
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+corner_detail = 20
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3v2ag"]
+font_color = Color(0.999708, 0.954249, 0.835441, 1)
+outline_size = 1
+outline_color = Color(0.380934, 0.301044, 0.00826607, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.458824)
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_g2els")
@@ -146,13 +269,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 [node name="Hook Raycast" type="RayCast3D" parent="Head/Camera3D"]
 target_position = Vector3(0, 0, -50)
 
+[node name="banana_gun" parent="Head/Camera3D" instance=ExtResource("2_tuyoq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.475963, -0.236129, -0.387099)
+script = ExtResource("3_smehm")
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="Head/Camera3D/banana_gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0438679, -0.133345)
+emitting = false
+amount = 1
+lifetime = 0.25
+one_shot = true
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_tuyoq")
+draw_pass_1 = SubResource("PlaneMesh_smehm")
+
 [node name="HookController" type="Node" parent="."]
 script = ExtResource("2_dqkch")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_uwk8q")
+&"": SubResource("AnimationLibrary_uwk8q")
 }
+playback_default_blend_time = 0.05
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_b2ed3")
@@ -167,6 +305,9 @@ transform = Transform3D(-0.75, 0, -6.55671e-08, 0, 0.75, 0, 6.55671e-08, 0, -0.7
 
 [node name="HookRopeStart" type="Marker3D" parent="ODM"]
 transform = Transform3D(-1.33333, 3.01689e-08, 1.12592e-07, 0, 1.2879, -0.345092, -1.16564e-07, -0.345092, -1.2879, -0.292669, 0.041883, 0.236053)
+
+[node name="HealthComponent" type="Node3D" parent="."]
+script = ExtResource("9_ur7pv")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -184,3 +325,57 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_dqkch")
+
+[node name="Inv_UI" parent="HUD" instance=ExtResource("6_tuyoq")]
+offset_left = -186.0
+offset_top = -58.0
+offset_right = 186.0
+offset_bottom = -10.0
+
+[node name="HealthBar" type="ProgressBar" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 159.0
+offset_top = 27.0
+offset_right = -159.0
+offset_bottom = -296.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ur7pv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_y4r1p")
+max_value = 10.0
+value = 10.0
+show_percentage = false
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -63.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 51.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_d2wvv")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="BananaCount" type="Label" parent="HUD/PanelContainer/MarginContainer"]
+layout_mode = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_3v2ag")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+ellipsis_char = "+"
+
+[node name="NameLabel3D" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28943, 0)
+billboard = 1

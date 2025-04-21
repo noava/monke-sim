@@ -2,19 +2,27 @@ extends Node
 
 const PORT = 135
 var peer = ENetMultiplayerPeer.new()
+@onready var host_name_entry: LineEdit = %HostNameEntry
+@onready var join_name_entry: LineEdit = %JoinNameEntry
 @onready var ip_entry: LineEdit = %IPEntry
 @onready var join_btn: Button = %JoinBtn
+var player_display_name: String = "":
+	get: return player_display_name
 
 func _ready() -> void:
-	# wait for text input
-	join_btn.disabled = true
-	ip_entry.text_changed.connect(_on_text_changed)
-	
+	$UI.show()
+
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("quit"):
 		get_tree().quit()
 
 func _on_host_pressed() -> void:
+	if host_name_entry.text == "":
+		OS.alert("Need a name")
+		return
+		
+	player_display_name = host_name_entry.text
+	
 	peer.create_server(PORT)
 	multiplayer.multiplayer_peer = peer
 	start_game()
@@ -33,13 +41,17 @@ func change_level(scene: PackedScene):
 		
 	level.add_child(scene.instantiate())
 
-func _on_text_changed(new_text):
-	join_btn.disabled = new_text.strip_edges() == ""
 
 func _on_join_pressed() -> void:
+	if join_name_entry.text == "":
+		OS.alert("Need a name")
+		return
 	if ip_entry.text == "":
 		OS.alert("Need a remote to connect to.")
 		return
+	
+	player_display_name = join_name_entry.text
+	
 	peer.create_client(ip_entry.text, PORT)
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Failed to join. Check IP")

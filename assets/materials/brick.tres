@@ -1,0 +1,19 @@
+[gd_resource type="StandardMaterial3D" load_steps=6 format=3 uid="uid://ctgnc30pqm7vq"]
+
+[ext_resource type="Texture2D" uid="uid://dsl7iowddlc54" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Color.jpg" id="1_rw04c"]
+[ext_resource type="Texture2D" uid="uid://6btrmxbfxte2" path="res://assets/textures/Bricks/Bricks059_1K-JPG_AmbientOcclusion.jpg" id="2_imo34"]
+[ext_resource type="Texture2D" uid="uid://dorb6tbmeox7t" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Displacement.jpg" id="3_gl2fw"]
+[ext_resource type="Texture2D" uid="uid://cb1576tb11v75" path="res://assets/textures/Bricks/Bricks059_1K-JPG_NormalGL.jpg" id="4_wxnfw"]
+[ext_resource type="Texture2D" uid="uid://cpu6a4i6esy6b" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Roughness.jpg" id="5_aa84l"]
+
+[resource]
+albedo_texture = ExtResource("1_rw04c")
+roughness_texture = ExtResource("5_aa84l")
+normal_enabled = true
+normal_texture = ExtResource("4_wxnfw")
+ao_enabled = true
+ao_texture = ExtResource("2_imo34")
+heightmap_enabled = true
+heightmap_texture = ExtResource("3_gl2fw")
+uv1_triplanar = true
+uv1_world_triplanar = true

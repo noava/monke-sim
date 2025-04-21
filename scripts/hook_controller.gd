@@ -14,8 +14,6 @@ extends Node
 @export var extend_action_name: String = "MWU"## Input Map action name that increases the length of the rope rest_length; default mouse scroll up
 
 
-
-
 @export_group("References")
 @export var hook_scene: PackedScene = preload("res://scenes/hook.tscn") ## The hook and rope which we will be instantiating
 @onready var player_body: CharacterBody3D = $".." ## The player, who we will apply forces to
@@ -38,9 +36,18 @@ var hook_target_node: Marker3D = null
 signal hook_launched()
 signal hook_attached(body)
 signal hook_detached()
+
+var is_enabled := false
+
 func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return
-
+	
+	if not is_enabled:
+		# Retract when swapping item in hotbar
+		if is_hook_launched:
+			_retract_hook()
+		return
+	
 	# Hold to grapple
 	if Input.is_action_pressed(launch_action_name):
 		if not is_hook_launched:
