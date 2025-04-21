@@ -143,10 +143,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("interact"):
 		if grab:
 			release()
-		elif grab_raycast.is_colliding() and grab_raycast.get_collider() is RigidBody3D:
+		elif grab_raycast.is_colliding() and grab_raycast.get_collider() is RigidBody3D and grab_raycast.get_collider().has_node("Grabbable"):
 			grab = grab_raycast.get_collider()
 
-	if grab:
+	if grab and not grab.has_method("get_banana_value"):
 		grab.linear_velocity = grab_force * (grab_target.global_position - grab.global_position)
 
 		if Input.is_action_just_pressed("l_mouse"):
@@ -156,7 +156,7 @@ func _physics_process(delta):
 			grab.apply_impulse(Vector3.ZERO, dir * throw_force)
 			release()
 	
-	# Show Grab Label
+	# Show Interact Label
 	if grab_raycast.is_colliding() and  grab_raycast.get_collider() is Node3D and not grab:
 		var target = grab_raycast.get_collider()
 		# Check if the label already exists
@@ -165,13 +165,16 @@ func _physics_process(delta):
 			label_instance = Label3D.new()
 			label_instance.name = "LookLabel"
 			label_instance.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+			label_instance.position = Vector3(0, 0.1, 0)
 
 			if target.has_method("get_item_price"):
 				var price = target.item_price
 				label_instance.position = Vector3(0, 0.7, 0)
 				label_instance.text = "E to spend " + str(price) + " bananas"
-			else:
-				label_instance.position = Vector3(0, 0.1, 0)
+			if target.has_method("get_banana_value"):
+				var banana_value = target.banana_value
+				label_instance.text = "E for +" + str(banana_value) + " bananas"
+			if target.has_node("Grabbable"):
 				label_instance.text = "E for uppies"
 			
 			target.add_child(label_instance)

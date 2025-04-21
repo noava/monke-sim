@@ -51,7 +51,7 @@ func _input(_event: InputEvent) -> void:
 			equip_item(number)
 	
 	if Input.is_action_just_pressed("interact"):
-		try_purchase()
+		interact_item()
 
 func equip_item(slot_index: int) -> void:
 	for i in item_grid.get_child_count():
@@ -83,21 +83,30 @@ func equip_item(slot_index: int) -> void:
 			print("Equipped item from slot:", slot_index)
 			print("Equipped item:", item_name)
 
-func try_purchase():
+func interact_item():
 	if interact_ray.is_colliding():
-		var shop_item = interact_ray.get_collider()
-		if shop_item and shop_item.has_method("get_item_price"):
-			var price = shop_item.item_price
-			var item_id = shop_item.item_id
+		var item = interact_ray.get_collider()
+		
+		# Buy item
+		if item and item.has_method("get_item_price"):
+			var price = item.item_price
+			var item_id = item.item_id
 			
 			if bananas >= price:
 					bananas -= price
 					add_to_hotbar(item_id)
-
-					shop_item.queue_free()
+					item.queue_free()
 			else:
 					# TODO: Show UI message. A console?
 					print("Not enough bananas!")
+		
+		# Give Money
+		if item and item.has_method("get_banana_value"):
+			var banana_value = item.banana_value
+			
+			bananas += banana_value
+			item.queue_free()
+
 
 func add_to_hotbar(item_id: String):
 	for i in range(item_grid.get_child_count()):

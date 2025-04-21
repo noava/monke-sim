@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dw37ibv584nkf"]
+[gd_scene load_steps=31 format=3 uid="uid://dw37ibv584nkf"]
 
 [ext_resource type="Script" uid="uid://comqbk36b4wvn" path="res://scripts/level.gd" id="1_j8asw"]
 [ext_resource type="Texture2D" uid="uid://c3gr08t11puja" path="res://assets/textures/Grass/Grass004_1K-JPG_Color.jpg" id="2_8mr64"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cb1576tb11v75" path="res://assets/textures/Bricks/Bricks059_1K-JPG_NormalGL.jpg" id="9_0lbey"]
 [ext_resource type="Texture2D" uid="uid://cpu6a4i6esy6b" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Roughness.jpg" id="10_pm4hl"]
 [ext_resource type="PackedScene" uid="uid://d1qobkjvefgp6" path="res://assets/models/banana.glb" id="13_yh20h"]
+[ext_resource type="Script" uid="uid://kajuhtybk4e8" path="res://scripts/banana_value.gd" id="14_fme2p"]
 [ext_resource type="PackedScene" uid="uid://cflj7hd6oules" path="res://assets/models/multiple_bananas.glb" id="14_uf0dc"]
 [ext_resource type="Script" uid="uid://btfnvv1uijtfp" path="res://scripts/shop_item.gd" id="15_ci1tm"]
 
@@ -157,6 +158,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.759817, -5.52076)
 transform = Transform3D(0.07, 0, 0, 0, 0.093, 0, 0, 0, 0.439, -0.00373697, 0.0394471, -0.0132542)
 shape = SubResource("BoxShape3D_4y0hx")
 
+[node name="Grabbable" type="Node3D" parent="Map/Thang"]
+
 [node name="SpawnPoints" type="Node3D" parent="Map"]
 
 [node name="Spawn0" type="Node3D" parent="Map/SpawnPoints"]
@@ -177,15 +180,14 @@ autoplay = "RESET"
 wait_time = 300.0
 one_shot = true
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08442, -5.31639)
-
-[node name="Thang2" type="RigidBody3D" parent="Map"]
+[node name="CollectBanana" type="RigidBody3D" parent="Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26098, 0.759817, -5.52076)
+script = ExtResource("14_fme2p")
+banana_value = 30
 
-[node name="multiple_bananas" parent="Map/Thang2" instance=ExtResource("14_uf0dc")]
+[node name="multiple_bananas" parent="Map/CollectBanana" instance=ExtResource("14_uf0dc")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Thang2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/CollectBanana"]
 transform = Transform3D(0.134592, 0, 0, 0, 0.093207, 0, 0, 0, 0.438847, 0.00350755, 0.0537121, -0.0132542)
 shape = SubResource("BoxShape3D_4y0hx")
 
