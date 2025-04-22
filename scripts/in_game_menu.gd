@@ -1,6 +1,7 @@
 extends Control
 
 var is_menu: bool = false
+@onready var player: CharacterBody3D = $"../.."
 
 func _ready() -> void:
 	hide()
@@ -26,6 +27,11 @@ func _on_resume_pressed() -> void:
 	$Choices.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	is_menu = false
+
+func _on_stuck_pressed() -> void:
+	player.velocity = Vector3.ZERO
+	player.global_position = Vector3(45, -4, 45)
+	_on_resume_pressed()
 
 func _on_leave_pressed() -> void:
 	$Choices.hide()

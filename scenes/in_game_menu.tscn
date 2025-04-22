@@ -16,7 +16,6 @@ theme = ExtResource("1_q5csu")
 script = ExtResource("1_0cve7")
 
 [node name="Choices" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -34,11 +33,16 @@ grow_vertical = 2
 layout_mode = 2
 text = "Resume"
 
+[node name="Stuck" type="Button" parent="Choices"]
+layout_mode = 2
+text = "Stuck"
+
 [node name="Leave" type="Button" parent="Choices"]
 layout_mode = 2
 text = "Leave"
 
 [node name="AreYouSure" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -95,6 +99,7 @@ layout_mode = 2
 text = "get me out of here!"
 
 [connection signal="pressed" from="Choices/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Choices/Stuck" to="." method="_on_stuck_pressed"]
 [connection signal="pressed" from="Choices/Leave" to="." method="_on_leave_pressed"]
 [connection signal="pressed" from="AreYouSure/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]
 [connection signal="pressed" from="AreYouSure/VBoxContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
