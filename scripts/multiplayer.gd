@@ -14,11 +14,6 @@ func _ready() -> void:
 	$UI.show()
 	
 
-
-func _unhandled_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
-
 func _on_host_pressed() -> void:
 	if host_name_entry.text == "":
 		OS.alert("Need a name")
