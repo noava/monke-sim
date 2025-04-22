@@ -89,7 +89,11 @@ func _unhandled_input(event):
 	player_model.rotation.y = head.rotation.y + PI
 
 func _physics_process(delta):
+	handle_animations(delta)
+
 	if not is_multiplayer_authority(): return
+	
+	update_animation_states()
 
 	# Gravity
 	if not is_on_floor():
@@ -182,9 +186,6 @@ func _physics_process(delta):
 		remove_existing_labels()
 
 	move_and_slide()
-	
-	update_animation_states()
-	handle_animations(delta)
 	
 	crosshair.texture = HOOK_AVAILIBLE_TEXTURE if hook_raycast.is_colliding() and not hook_controller.is_hook_launched and hook_controller.is_enabled else HOOK_NOT_AVAILIBLE_TEXTURE
 
