@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=35 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cskw882fffi36" path="res://assets/sprites/hook_available.png" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://cchpdf1x63oa5" path="res://inventory/inv_ui.tscn" id="6_tuyoq"]
 [ext_resource type="Script" uid="uid://d04thcbw25pd0" path="res://scripts/health_component.gd" id="9_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://ddo0rvhsdm4ca" path="res://scenes/in_game_menu.tscn" id="11_d2wvv"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y4r1p"]
 animation = &"HoldItem"
@@ -482,6 +483,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
 ellipsis_char = "+"
+
+[node name="InGameMenu" parent="HUD" instance=ExtResource("11_d2wvv")]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="NameLabel3D" type="Label3D" parent="."]
 unique_name_in_owner = true

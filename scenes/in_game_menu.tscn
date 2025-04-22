@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddo0rvhsdm4ca"]
+
+[ext_resource type="Script" uid="uid://bl6opf28qwb4i" path="res://scripts/in_game_menu.gd" id="1_0cve7"]
+[ext_resource type="Theme" uid="uid://c87d05qpvxeyn" path="res://assets/ui/theme/main_ui_theme.tres" id="1_q5csu"]
+
+[node name="InGameMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_q5csu")
+script = ExtResource("1_0cve7")
+
+[node name="Choices" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -25.0
+offset_right = 34.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="Choices"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Leave" type="Button" parent="Choices"]
+layout_mode = 2
+text = "Leave"
+
+[node name="AreYouSure" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.0
+offset_top = -66.0
+offset_right = 122.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AreYouSure"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -38.0
+offset_right = 140.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="AreYouSure/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.635294, 0.356863, 1)
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="AreYouSure/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "All progress gets deleted"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AreYouSure/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="NoButton" type="Button" parent="AreYouSure/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "let me stay!"
+
+[node name="YesButton" type="Button" parent="AreYouSure/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "get me out of here!"
+
+[connection signal="pressed" from="Choices/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Choices/Leave" to="." method="_on_leave_pressed"]
+[connection signal="pressed" from="AreYouSure/VBoxContainer/HBoxContainer/NoButton" to="." method="_on_no_button_pressed"]
+[connection signal="pressed" from="AreYouSure/VBoxContainer/HBoxContainer/YesButton" to="." method="_on_yes_button_pressed"]
