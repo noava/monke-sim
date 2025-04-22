@@ -1,8 +1,10 @@
 extends Node3D
 
 @onready var player: CharacterBody3D = $".."
-@onready var health_bar: ProgressBar = $"../HUD/HealthBar"
+@onready var health_bar: TextureProgressBar = $"../HUD/HealthBar"
 @onready var max_health: float = health_bar.max_value
+@onready var amount: Label = $"../HUD/HealthBar/Amount"
+var bar_tween: Tween = null
 
 var health : float:
 	get:
@@ -10,7 +12,11 @@ var health : float:
 	set(value):
 		health = value
 		if health_bar:
-			health_bar.value = health
+			amount.text = str(int(health))
+			
+			if bar_tween: bar_tween.kill()
+			bar_tween = create_tween()
+			bar_tween.tween_property(health_bar, "value", health, 0.3)
 
 func _ready() -> void:
 	health = max_health

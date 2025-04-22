@@ -33,7 +33,7 @@ func _unhandled_input(_event):
 				health_component.rpc_id(
 					hit_player.get_multiplayer_authority(),
 					"receive_damage",
-					2 # Input Damage for each gun type
+					27 # Input Damage for each gun type
 				)
 				show_hitmarker()
 
