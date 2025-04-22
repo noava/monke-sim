@@ -9,8 +9,8 @@ var health : float:
 		return health
 	set(value):
 		health = value
-		print(health)
-		health_bar.value = health
+		if health_bar:
+			health_bar.value = health
 
 func _ready() -> void:
 	health = max_health

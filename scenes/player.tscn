@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=36 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://35idgp7boa6m" path="res://assets/models/chimbanzee.glb" id="2_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://mqqqq7xb03a" path="res://assets/sprites/star_05.png" id="3_fjrip"]
 [ext_resource type="Script" uid="uid://dhx3vun3cc8oe" path="res://scripts/banana_gun.gd" id="3_smehm"]
-[ext_resource type="Texture2D" uid="uid://cskw882fffi36" path="res://assets/sprites/hook_available.png" id="4_dqkch"]
 [ext_resource type="PackedScene" uid="uid://cchpdf1x63oa5" path="res://inventory/inv_ui.tscn" id="6_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://cr0s3e656yh8l" path="res://assets/sprites/crosshair.png" id="9_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://bwovawmgiyvc8" path="res://assets/sprites/hitmarker.png" id="9_d2wvv"]
 [ext_resource type="Script" uid="uid://d04thcbw25pd0" path="res://scripts/health_component.gd" id="9_ur7pv"]
 [ext_resource type="PackedScene" uid="uid://ddo0rvhsdm4ca" path="res://scenes/in_game_menu.tscn" id="11_d2wvv"]
 
@@ -426,14 +427,31 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("4_dqkch")
+texture = ExtResource("9_3v2ag")
+expand_mode = 1
+
+[node name="Hitmarker" type="TextureRect" parent="HUD"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_d2wvv")
+expand_mode = 1
 
 [node name="Inv_UI" parent="HUD" instance=ExtResource("6_tuyoq")]
 offset_left = -186.0

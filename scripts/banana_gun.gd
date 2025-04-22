@@ -7,10 +7,16 @@ var is_enabled := false
 @onready var banana_gun: Node3D = $"."
 @onready var long_raycast: RayCast3D = $"../Hook Raycast" # TODO: Change name to something more dynamic like "Long Raycast"
 
+# Hitmarker
+@onready var HITMARKER : CompressedTexture2D = preload("res://assets/sprites/hitmarker.png")
+@onready var hitmarker: TextureRect = $"../../../HUD/Hitmarker"
+var tween: Tween = null
+
 
 func _ready():
 	banana_gun.visible = false
-	
+	hitmarker.modulate.a = 0.0
+
 func _unhandled_input(_event):
 	if not is_multiplayer_authority(): return
 	
@@ -29,6 +35,7 @@ func _unhandled_input(_event):
 					"receive_damage",
 					2 # Input Damage for each gun type
 				)
+				show_hitmarker()
 
 # Let other players see you shooting
 @rpc("call_local")
@@ -43,3 +50,10 @@ func play_shoot_effects():
 func set_enabled(value: bool):
 	is_enabled = value
 	banana_gun.visible = value
+
+func show_hitmarker():
+	if tween: tween.kill()
+	hitmarker.modulate.a = 1.0
+
+	tween = create_tween()
+	tween.tween_property(hitmarker, "modulate:a", 0.0, 0.3)
