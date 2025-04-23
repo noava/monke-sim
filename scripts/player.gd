@@ -52,12 +52,13 @@ var jump_val = 0
 var hold_val = 0
 
 @onready var player_model: Node3D = $player_model
+@onready var player_mesh: MeshInstance3D = $player_model/rig/Skeleton3D/Geo_Chimpanzee
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var input: MultiplayerSynchronizer = $PlayerInput
 @onready var grab_raycast: RayCast3D = $"Head/Camera3D/Grab Ray"
 @onready var grab_target: Node3D = $"Head/Camera3D/Grab Ray/Grab Target"
-@onready var hook_raycast: RayCast3D = $"Head/Camera3D/Hook Raycast"
+@onready var hook_raycast: RayCast3D = %"Long Raycast"
 @onready var hook_controller: HookController = $HookController
 
 @export var player_name: String = "Unnamed" :
@@ -73,7 +74,7 @@ func _ready():
 		
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
-	player_model.visible = false
+	player_mesh.visible = false
 	
 	player_name = player_name
 	

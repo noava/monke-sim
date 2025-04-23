@@ -5,7 +5,7 @@ const Slot = preload("res://inventory/slot.tscn")
 @onready var item_grid: HBoxContainer = $MarginContainer/ItemGrid
 
 @onready var hook_controller: HookController = $"../../HookController"
-@onready var banana_gun: Node3D = $"../../Head/Camera3D/banana_gun"
+@onready var banana_gun: Node3D = $"../../player_model/rig/Skeleton3D/BoneAttachment3D/ItemsHere/banana_gun"
 @onready var interact_ray: RayCast3D = $"../../Head/Camera3D/Grab Ray"
 @onready var banana_count: Label = $"../BananaUI/BananaCount"
 @onready var player: CharacterBody3D = $"../.."
@@ -72,7 +72,9 @@ func equip_item(slot_index: int) -> void:
 			player.rpc("set_holditem_enabled", is_holdingitem)
 			
 			# Vine Grapple
-			hook_controller.is_enabled = (item_name == "Vine Grapple")
+			var is_grapple: bool = item_name == "Vine Grapple"
+			hook_controller.is_enabled = is_grapple
+			%vine_grapple.rpc("set_enabled", is_grapple)
 			
 			# Gun
 			var is_gun: bool = item_name == "Gun"

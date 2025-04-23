@@ -2,14 +2,14 @@ extends Node
 
 var is_enabled := false
 
-@onready var ANIMATIONPLAYER: AnimationPlayer = $"../../../AnimationPlayer"
+@onready var ANIMATIONPLAYER: AnimationPlayer = $AnimationPlayer
 @onready var muzzle_flash: GPUParticles3D = $MuzzleFlash
 @onready var banana_gun: Node3D = $"."
-@onready var long_raycast: RayCast3D = $"../Hook Raycast" # TODO: Change name to something more dynamic like "Long Raycast"
+@onready var long_raycast: RayCast3D = %"Long Raycast"
 
 # Hitmarker
 @onready var HITMARKER : CompressedTexture2D = preload("res://assets/sprites/hitmarker.png")
-@onready var hitmarker: TextureRect = $"../../../HUD/Hitmarker"
+@onready var hitmarker: TextureRect = %Hitmarker
 var tween: Tween = null
 
 
