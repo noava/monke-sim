@@ -1,11 +1,11 @@
 extends PanelContainer
 
-@onready var texture_rect: TextureRect = $MarginContainer/TextureRect
+@onready var texture_rect: TextureRect = $MarginContainer/PanelContainer/TextureRect
 
 var slot_data: SlotData = null:
 	get = get_slot_data, set = set_slot_data
 
-@onready var highlight: Panel = $Highlight
+@onready var highlight: TextureRect = $Highlight
 
 func _ready() -> void:
 	highlight.visible = false

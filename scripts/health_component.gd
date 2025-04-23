@@ -6,6 +6,7 @@ extends Node3D
 @onready var amount: Label = $"../HUD/HealthBar/Amount"
 var bar_tween: Tween = null
 @onready var death_screen: Control = $"../HUD/DeathScreen"
+@onready var bits_and_bobs: Control = $"../HUD/Bits and bobs"
 
 var health : float:
 	get:
@@ -22,6 +23,7 @@ var health : float:
 func _ready() -> void:
 	health = max_health
 	death_screen.hide()
+	bits_and_bobs.show()
 
 @rpc("any_peer")
 func receive_damage(damage: int):
@@ -34,9 +36,12 @@ func receive_damage(damage: int):
 func death():
 	player.position = Vector3.ZERO
 	death_screen.show()
+	bits_and_bobs.hide()
+
 	health = max_health
 	
 	print("Player %s has died" % player.name)
 	
 	await get_tree().create_timer(2).timeout
 	death_screen.hide()
+	bits_and_bobs.show()

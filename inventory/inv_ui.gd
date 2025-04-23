@@ -7,7 +7,7 @@ const Slot = preload("res://inventory/slot.tscn")
 @onready var hook_controller: HookController = $"../../HookController"
 @onready var banana_gun: Node3D = $"../../Head/Camera3D/banana_gun"
 @onready var interact_ray: RayCast3D = $"../../Head/Camera3D/Grab Ray"
-@onready var banana_count: Label = $"../PanelContainer/MarginContainer/BananaCount"
+@onready var banana_count: Label = $"../BananaUI/BananaCount"
 @onready var player: CharacterBody3D = $"../.."
 
 var equipped_item: SlotData = null
@@ -17,7 +17,7 @@ var bananas: int = 42:
 	set(value):
 		bananas = value
 		print(bananas)
-		banana_count.text = str(bananas)
+		banana_count.text = str(bananas).pad_zeros(5)
 		
 func populate_item_grid(slot_datas: Array[SlotData]) -> void:
 	for child in item_grid.get_children():

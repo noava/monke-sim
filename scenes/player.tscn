@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=40 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
@@ -15,6 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://d2tnir1vl7wik" path="res://assets/ui/health_bar/Under.png" id="12_oprun"]
 [ext_resource type="Texture2D" uid="uid://cboohhptw0e0l" path="res://assets/ui/health_bar/Over.png" id="13_a8ls1"]
 [ext_resource type="Texture2D" uid="uid://cxin6m6su67ln" path="res://assets/ui/health_bar/Progress.png" id="14_oprun"]
+[ext_resource type="Texture2D" uid="uid://4x2b7fskyn8q" path="res://assets/ui/Banana UI.png" id="15_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://barg1rnc2oreh" path="res://assets/ui/bits_and_bobs/Healthbar Dots and Lines.png" id="17_60mlk"]
+[ext_resource type="Texture2D" uid="uid://u6mwn68qn4e5" path="res://assets/ui/bits_and_bobs/UpperLeft.png" id="18_4r5pv"]
+[ext_resource type="Texture2D" uid="uid://busrjol2tj4g2" path="res://assets/ui/bits_and_bobs/LowerRight.png" id="19_60mlk"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y4r1p"]
 animation = &"HoldItem"
@@ -247,23 +251,9 @@ properties/0/path = NodePath(".:input_direction")
 properties/0/spawn = false
 properties/0/replication_mode = 1
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2wvv"]
-bg_color = Color(0.47, 0.370203, 0.00939999, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.748686, 0.592586, 0.0178003, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 10
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-corner_detail = 20
-shadow_size = 2
-shadow_offset = Vector2(2, 2)
-
 [sub_resource type="LabelSettings" id="LabelSettings_3v2ag"]
-font_color = Color(0.999708, 0.954249, 0.835441, 1)
+font_size = 14
+font_color = Color(0.964706, 0.85098, 0.737255, 1)
 outline_size = 1
 outline_color = Color(0.380934, 0.301044, 0.00826607, 1)
 shadow_size = 2
@@ -271,6 +261,8 @@ shadow_color = Color(0, 0, 0, 0.458824)
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_g2els")
+metadata/_edit_horizontal_guides_ = [344.0, 10.0]
+metadata/_edit_vertical_guides_ = [10.0, 630.0]
 
 [node name="player_model" parent="." instance=ExtResource("2_y4r1p")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -452,18 +444,18 @@ expand_mode = 1
 
 [node name="Inv_UI" parent="HUD" instance=ExtResource("6_tuyoq")]
 offset_left = -186.0
-offset_top = -58.0
+offset_top = -56.0
 offset_right = 186.0
-offset_bottom = -10.0
+offset_bottom = -8.0
 
 [node name="HealthBar" type="TextureProgressBar" parent="HUD"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -54.0
-offset_right = 134.0
-offset_bottom = -20.0
+offset_left = 20.0
+offset_top = -50.0
+offset_right = 144.0
+offset_bottom = -16.0
 grow_vertical = 0
 value = 65.0
 nine_patch_stretch = true
@@ -496,7 +488,8 @@ theme_override_font_sizes/font_size = 20
 text = "HP"
 vertical_alignment = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="HUD"]
+[node name="BananaUI" type="Control" parent="HUD"]
+layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -505,20 +498,24 @@ offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 51.0
 grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_d2wvv")
 
-[node name="MarginContainer" type="MarginContainer" parent="HUD/PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="HUD/BananaUI"]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 4
+offset_left = -13.0
+offset_right = 53.0
+offset_bottom = 51.0
+texture = ExtResource("15_a8ls1")
+expand_mode = 1
 
-[node name="BananaCount" type="Label" parent="HUD/PanelContainer/MarginContainer"]
+[node name="BananaCount" type="Label" parent="HUD/BananaUI"]
 layout_mode = 2
-text = "1000"
+offset_left = -9.0
+offset_top = 9.0
+offset_right = 44.0
+offset_bottom = 23.592
+text = "00420"
 label_settings = SubResource("LabelSettings_3v2ag")
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 text_overrun_behavior = 3
 ellipsis_char = "+"
@@ -532,6 +529,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="DeathScreen" type="Control" parent="HUD"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -568,6 +566,72 @@ theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 4
 theme_override_font_sizes/font_size = 50
 text = "You died"
+
+[node name="Bits and bobs" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HealthBar" type="TextureRect" parent="HUD/Bits and bobs"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 294.0
+offset_right = 147.0
+offset_bottom = 347.0
+texture = ExtResource("17_60mlk")
+expand_mode = 3
+
+[node name="UpperLeft" type="TextureRect" parent="HUD/Bits and bobs"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 152.0
+offset_bottom = 85.0
+texture = ExtResource("18_4r5pv")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HUD/Bits and bobs"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 146.0
+offset_right = 70.0
+offset_bottom = 160.592
+rotation = 4.71238
+theme_override_colors/font_color = Color(0.964706, 0.85098, 0.737255, 1)
+theme_override_font_sizes/font_size = 10
+text = "Apr 2025"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="HUD/Bits and bobs"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 10.0
+offset_right = 128.0
+offset_bottom = 24.592
+theme_override_colors/font_color = Color(0.964706, 0.85098, 0.737255, 1)
+theme_override_font_sizes/font_size = 10
+text = "monke simmmmm 0.0.1"
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Bits and bobs"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -24.0
+offset_right = -10.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("19_60mlk")
+expand_mode = 1
 
 [node name="NameLabel3D" type="Label3D" parent="."]
 unique_name_in_owner = true
