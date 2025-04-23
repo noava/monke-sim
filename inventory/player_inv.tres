@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=7 format=3 uid="uid://davkbi7n2d8q3"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=9 format=3 uid="uid://davkbi7n2d8q3"]
 
 [ext_resource type="Script" uid="uid://d1lcn4uu3b7j3" path="res://inventory/inventory_data.gd" id="1_lpgju"]
 [ext_resource type="Script" uid="uid://cidpd24yqp6no" path="res://inventory/slot_data.gd" id="2_h4yv7"]
 [ext_resource type="Resource" uid="uid://di7df185strvi" path="res://inventory/items/vine_grapple.tres" id="3_gjtu6"]
-[ext_resource type="Resource" uid="uid://dvuk261ajeroh" path="res://inventory/items/gun.tres" id="4_knutq"]
+[ext_resource type="Resource" uid="uid://bvsc4vcauxdxk" path="res://inventory/items/banana_sniper.tres" id="4_7fuvg"]
+[ext_resource type="Resource" uid="uid://dvuk261ajeroh" path="res://inventory/items/banana_gun.tres" id="5_7fuvg"]
 
 [sub_resource type="Resource" id="Resource_knutq"]
 script = ExtResource("2_h4yv7")
@@ -11,13 +12,19 @@ item_id = ""
 item_data = ExtResource("3_gjtu6")
 metadata/_custom_type_script = "uid://cidpd24yqp6no"
 
+[sub_resource type="Resource" id="Resource_0xp2f"]
+script = ExtResource("2_h4yv7")
+item_id = ""
+item_data = ExtResource("4_7fuvg")
+metadata/_custom_type_script = "uid://cidpd24yqp6no"
+
 [sub_resource type="Resource" id="Resource_7fuvg"]
 script = ExtResource("2_h4yv7")
 item_id = ""
-item_data = ExtResource("4_knutq")
+item_data = ExtResource("5_7fuvg")
 metadata/_custom_type_script = "uid://cidpd24yqp6no"
 
 [resource]
 script = ExtResource("1_lpgju")
-slot_datas = Array[ExtResource("2_h4yv7")]([SubResource("Resource_knutq"), null, null, SubResource("Resource_7fuvg"), null, null, null, null, null, null])
+slot_datas = Array[ExtResource("2_h4yv7")]([SubResource("Resource_knutq"), null, SubResource("Resource_0xp2f"), SubResource("Resource_7fuvg"), null, null, null, null, null, null])
 metadata/_custom_type_script = "uid://d1lcn4uu3b7j3"

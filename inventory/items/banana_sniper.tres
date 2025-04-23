@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bvsc4vcauxdxk"]
+
+[ext_resource type="Script" uid="uid://7ox6pynd1cqc" path="res://inventory/item_data.gd" id="1_7ponq"]
+[ext_resource type="Texture2D" uid="uid://bg05j7ewmlo6j" path="res://inventory/items/banana_sniper.png" id="2_x7ytn"]
+
+[resource]
+script = ExtResource("1_7ponq")
+name = "Banana Sniper"
+texture = ExtResource("2_x7ytn")
+damage = 80.0
+item_type = 1
+metadata/_custom_type_script = "uid://7ox6pynd1cqc"

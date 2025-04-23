@@ -66,6 +66,7 @@ func equip_item(slot_index: int) -> void:
 			equipped_item = slot.get_slot_data()
 			
 			var item_name = equipped_item.item_data.name if equipped_item and equipped_item.item_data else ""
+			var item_data = equipped_item.item_data if equipped_item and equipped_item.item_data else null
 			
 			# Hold Item Pose
 			var is_holdingitem: bool = item_name != ""
@@ -77,9 +78,10 @@ func equip_item(slot_index: int) -> void:
 			%vine_grapple.rpc("set_enabled", is_grapple)
 			
 			# Gun
-			var is_gun: bool = item_name == "Gun"
+			var is_gun: bool = item_data and item_data.item_type == ItemData.ItemType.GUN
 			banana_gun.rpc("set_enabled", is_gun)
-
+			if is_gun:
+				banana_gun.set_item_data(item_data)
 			
 			# Debugging
 			print("Equipped item from slot:", slot_index)

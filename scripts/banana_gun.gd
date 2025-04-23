@@ -12,6 +12,7 @@ var is_enabled := false
 @onready var hitmarker: TextureRect = %Hitmarker
 var tween: Tween = null
 
+var item_data
 
 func _ready():
 	banana_gun.visible = false
@@ -33,7 +34,7 @@ func _unhandled_input(_event):
 				health_component.rpc_id(
 					hit_player.get_multiplayer_authority(),
 					"receive_damage",
-					27 # Input Damage for each gun type
+					item_data.damage
 				)
 				show_hitmarker()
 
@@ -57,3 +58,6 @@ func show_hitmarker():
 
 	tween = create_tween()
 	tween.tween_property(hitmarker, "modulate:a", 0.0, 0.3)
+
+func set_item_data(data):
+	item_data = data
