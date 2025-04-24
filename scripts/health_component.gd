@@ -37,7 +37,8 @@ func death():
 	player.position = Vector3.ZERO
 	death_screen.show()
 	bits_and_bobs.hide()
-
+	player.visible = false
+		
 	health = max_health
 	
 	print("Player %s has died" % player.name)
@@ -45,3 +46,6 @@ func death():
 	await get_tree().create_timer(2).timeout
 	death_screen.hide()
 	bits_and_bobs.show()
+	
+	await get_tree().create_timer(5).timeout
+	player.visible = true

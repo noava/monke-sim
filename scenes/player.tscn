@@ -273,11 +273,11 @@ properties/6/replication_mode = 1
 properties/7/path = NodePath(".:curAnim")
 properties/7/spawn = true
 properties/7/replication_mode = 1
+properties/8/path = NodePath(".:visible")
+properties/8/spawn = true
+properties/8/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rpqav"]
-properties/0/path = NodePath(".:input_direction")
-properties/0/spawn = false
-properties/0/replication_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_3v2ag"]
 font_size = 14
