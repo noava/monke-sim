@@ -11,7 +11,7 @@ const Slot = preload("res://inventory/slot.tscn")
 @onready var player: CharacterBody3D = $"../.."
 
 var equipped_item: SlotData = null
-var bananas: int = 42:
+var bananas: int = 0:
 	get:
 		return bananas
 	set(value):

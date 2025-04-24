@@ -187,7 +187,7 @@ func _physics_process(delta):
 					label_instance.text = "-" + str(price) + " bananas"
 				elif target.has_method("get_banana_value"):
 					var banana_value = target.banana_value
-					label_instance.modulate = Color("#59A753")
+					label_instance.position = Vector3(0, 0.4, 0)
 					label_instance.text = "+" + str(banana_value) + " bananas"
 				elif target.has_node("Grabbable"):
 					label_instance.text = "uppies"
