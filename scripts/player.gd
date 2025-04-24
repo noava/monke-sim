@@ -28,6 +28,7 @@ var gravity = 9.8
 @export var release_force = 0.4
 var grab:RigidBody3D
 var label_instance: Label3D
+var current_target: Node3D = null
 
 # Throw
 var throw_force = 20.0
@@ -162,29 +163,39 @@ func _physics_process(delta):
 			release()
 	
 	# Show Interact Label
-	if grab_raycast.is_colliding() and  grab_raycast.get_collider() is Node3D and not grab:
+	if grab_raycast.is_colliding() and grab_raycast.get_collider() is Node3D and not grab:
 		var target = grab_raycast.get_collider()
-		# Check if the label already exists
-		if not target.has_node("LookLabel"):
-			# Create the label
-			label_instance = Label3D.new()
-			label_instance.name = "LookLabel"
-			label_instance.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-			label_instance.position = Vector3(0, 0.1, 0)
+		
+		if target != current_target:
+			remove_existing_labels()
+			current_target = target
 
-			if target.has_method("get_item_price"):
-				var price = target.item_price
-				label_instance.position = Vector3(0, 0.7, 0)
-				label_instance.text = "E to spend " + str(price) + " bananas"
-			if target.has_method("get_banana_value"):
-				var banana_value = target.banana_value
-				label_instance.text = "E for +" + str(banana_value) + " bananas"
-			if target.has_node("Grabbable"):
-				label_instance.text = "E for uppies"
-			
-			target.add_child(label_instance)
+			# Check if the label already exists
+			if not target.has_node("LookLabel"):
+				# Create the label
+				label_instance = Label3D.new()
+				label_instance.name = "LookLabel"
+				label_instance.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+				label_instance.position = Vector3(0, 0.1, 0)
+				
+				# Label Color
+				label_instance.modulate = Color("#F6D9BC")
+				
+				if target.has_method("get_item_price"):
+					var price = target.item_price
+					label_instance.modulate = Color("#8D1A00")
+					label_instance.text = "-" + str(price) + " bananas"
+				elif target.has_method("get_banana_value"):
+					var banana_value = target.banana_value
+					label_instance.modulate = Color("#59A753")
+					label_instance.text = "+" + str(banana_value) + " bananas"
+				elif target.has_node("Grabbable"):
+					label_instance.text = "uppies"
+				
+				target.add_child(label_instance)
 	else:
 		remove_existing_labels()
+		current_target = null
 
 	move_and_slide()
 	
