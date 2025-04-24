@@ -8,6 +8,8 @@ var bar_tween: Tween = null
 @onready var death_screen: Control = $"../HUD/DeathScreen"
 @onready var bits_and_bobs: Control = $"../HUD/Bits and bobs"
 
+var is_dead: bool = false
+
 var health : float:
 	get:
 		return health
@@ -34,18 +36,25 @@ func receive_damage(damage: int):
 	print("Player %s has %s health" % [player.name, health])
 
 func death():
-	player.position = Vector3.ZERO
+	# Show Death Screen and Ragdoll
+	is_dead = true
 	death_screen.show()
 	bits_and_bobs.hide()
-	player.visible = false
-		
 	health = max_health
 	
 	print("Player %s has died" % player.name)
+	await get_tree().create_timer(1).timeout
 	
+	player.visible = false
 	await get_tree().create_timer(2).timeout
+	
+	# Tp to spawn and hide Death Screen
+	player.position = Vector3.ZERO
 	death_screen.hide()
 	bits_and_bobs.show()
 	
+	# Be unvisible for five seconds or until you shoot again.
 	await get_tree().create_timer(5).timeout
+	health = max_health
 	player.visible = true
+	is_dead = false

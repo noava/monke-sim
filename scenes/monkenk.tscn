@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://1ypjgs40qlp6"]
 
-[ext_resource type="PackedScene" uid="uid://bl3ylp8swnxfn" path="res://assets/models/monkenk.glb" id="1_u5o6a"]
+[ext_resource type="PackedScene" uid="uid://ba88b1wuojkdt" path="res://assets/models/monkenk.glb" id="1_u5o6a"]
 
 [node name="monkenk" instance=ExtResource("1_u5o6a")]
 

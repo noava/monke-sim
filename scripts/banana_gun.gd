@@ -6,6 +6,7 @@ var ANIMATIONPLAYER: AnimationPlayer = null
 var muzzle_flash: GPUParticles3D = null
 @onready var weapons_holder: Node3D = $"."
 @onready var long_raycast: RayCast3D = %"Long Raycast"
+@onready var player: CharacterBody3D = $"../../../../.."
 
 # Hitmarker
 @onready var HITMARKER : CompressedTexture2D = preload("res://assets/sprites/hitmarker.png")
@@ -24,6 +25,7 @@ func _unhandled_input(_event):
 	if not is_multiplayer_authority(): return
 	if not is_enabled: return
 	if Input.is_action_just_pressed("l_mouse") and ANIMATIONPLAYER and ANIMATIONPLAYER.current_animation != "shoot":
+		player.visible = true
 		play_shoot_effects.rpc()
 		
 		if long_raycast.is_colliding():

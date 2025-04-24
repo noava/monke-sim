@@ -45,7 +45,7 @@ var throw_force = 20.0
 @onready var anim_tree: AnimationTree = $player_model/AnimationTree
 @onready var camera_animation_player: AnimationPlayer = $Head/CameraAnimationPlayer
 
-enum {IDLE, WALK, RUN, JUMP, HOLD, CROUCH}
+enum {IDLE, WALK, RUN, JUMP, HOLD, CROUCH, DEAD}
 @export var curAnim: int = IDLE
 
 @export var blend_speed = 15
@@ -64,6 +64,7 @@ var crouch_val = 0
 @onready var grab_target: Node3D = $"Head/Camera3D/Grab Ray/Grab Target"
 @onready var hook_raycast: RayCast3D = %"Long Raycast"
 @onready var hook_controller: HookController = $HookController
+@onready var health_component: Node3D = $HealthComponent
 
 @export var player_name: String = "Unnamed" :
 	set(value):
@@ -262,6 +263,11 @@ func handle_animations(delta):
 				crouch_val = lerpf(crouch_val, 1, blend_speed * delta)
 			jump_val = lerpf(jump_val, 0, blend_speed * delta)
 			hold_val = lerpf(hold_val, 0, blend_speed * delta)
+		DEAD:
+			walk_val = lerpf(walk_val, 0, blend_speed * delta)
+			jump_val = lerpf(jump_val, 0, blend_speed * delta)
+			hold_val = lerpf(hold_val, 0, blend_speed * delta)
+			crouch_val = lerpf(clamp(crouch_val * 1.3, 0.0, 6.0), 1, blend_speed * delta)
 	update_tree()
 
 func update_tree():
@@ -271,7 +277,9 @@ func update_tree():
 	anim_tree["parameters/Crouch/blend_amount"] = crouch_val
 
 func update_animation_states():
-	if is_on_floor():
+	if health_component.is_dead:
+		curAnim = DEAD
+	elif is_on_floor():
 		if input.input_direction.length() > 0.1:
 			if speed == WALK_SPEED:
 				curAnim = WALK
