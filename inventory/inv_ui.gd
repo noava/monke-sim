@@ -5,7 +5,7 @@ const Slot = preload("res://inventory/slot.tscn")
 @onready var item_grid: HBoxContainer = $MarginContainer/ItemGrid
 
 @onready var hook_controller: HookController = $"../../HookController"
-@onready var banana_gun: Node3D = $"../../player_model/rig/Skeleton3D/BoneAttachment3D/ItemsHere/banana_gun"
+@onready var weapons_holder: Node3D = $"../../player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder"
 @onready var interact_ray: RayCast3D = $"../../Head/Camera3D/Grab Ray"
 @onready var banana_count: Label = $"../BananaUI/BananaCount"
 @onready var player: CharacterBody3D = $"../.."
@@ -79,9 +79,9 @@ func equip_item(slot_index: int) -> void:
 			
 			# Gun
 			var is_gun: bool = item_data and item_data.item_type == ItemData.ItemType.GUN
-			banana_gun.rpc("set_enabled", is_gun)
+			weapons_holder.rpc("set_enabled", is_gun)
 			if is_gun:
-				banana_gun.set_item_data(item_data)
+				weapons_holder.set_item_data(item_data)
 			
 			# Debugging
 			print("Equipped item from slot:", slot_index)
