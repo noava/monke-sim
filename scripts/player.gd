@@ -43,14 +43,17 @@ var throw_force = 20.0
 
 # Animations
 @onready var anim_tree: AnimationTree = $player_model/AnimationTree
+@onready var camera_animation_player: AnimationPlayer = $Head/CameraAnimationPlayer
 
-enum {IDLE, JUMP, HOLD}
+enum {IDLE, WALK, RUN, JUMP, HOLD, CROUCH}
 @export var curAnim: int = IDLE
 
 @export var blend_speed = 15
 
+var walk_val = 0
 var jump_val = 0
 var hold_val = 0
+var crouch_val = 0
 
 @onready var player_model: Node3D = $player_model
 @onready var player_mesh: MeshInstance3D = $player_model/rig/Skeleton3D/Geo_Chimpanzee
@@ -116,12 +119,13 @@ func _physics_process(delta):
 		speed = WALK_SPEED
 
 	# Crouch
-	# TODO: Fix Crouch by adding animation and fixing syncing
-	#if input.crouching:
-		#if !is_crouching:
-			#crouch()
-	#elif is_crouching:
-		#stand_up()
+	is_crouching = input.crouching
+	if is_crouching:
+		camera_animation_player.stop()
+		camera_animation_player.play("camera_crouch", -1, -1, true)
+	else:
+		camera_animation_player.stop()
+		camera_animation_player.play("camera_crouch", -1, 1)
 		
 	# Movement/Deceleration.
 	var direction = (head.transform.basis * transform.basis * Vector3(input.input_direction.x, 0, input.input_direction.y)).normalized()
@@ -224,25 +228,60 @@ func set_holditem_enabled(value: bool):
 func handle_animations(delta):
 	match curAnim:
 		IDLE:
+			walk_val = lerpf(walk_val, 0, blend_speed * delta)
 			jump_val = lerpf(jump_val, 0, blend_speed * delta)
 			hold_val = lerpf(hold_val, 0, blend_speed * delta)
+			crouch_val = lerpf(crouch_val, 0, blend_speed * delta)
+		WALK:
+			walk_val = lerpf(walk_val, 1, blend_speed * delta)
+			jump_val = lerpf(jump_val, 0, blend_speed * delta)
+			hold_val = lerpf(hold_val, 0, blend_speed * delta)
+			crouch_val = lerpf(crouch_val, 0, blend_speed * delta)
+
+		RUN:
+			walk_val = lerpf(clamp(walk_val * 2.0, 0.0, 3.0), 1.0, blend_speed * delta)
+			jump_val = lerpf(jump_val, 0, blend_speed * delta)
+			hold_val = lerpf(hold_val, 0, blend_speed * delta)
+			crouch_val = lerpf(crouch_val, 0, blend_speed * delta)
 		JUMP:
+			walk_val = lerpf(walk_val, 0, blend_speed * delta)
 			jump_val = lerpf(jump_val, 1, blend_speed * delta)
 			hold_val = lerpf(hold_val, 0, blend_speed * delta)
+			crouch_val = lerpf(crouch_val, 0, blend_speed * delta)
 		HOLD:
+			walk_val = lerpf(walk_val, 0, blend_speed * delta)
 			jump_val = lerpf(jump_val, 0, blend_speed * delta)
 			hold_val = lerpf(hold_val, 1, blend_speed * delta)
-
+			crouch_val = lerpf(crouch_val, 0, blend_speed * delta)
+		CROUCH:
+			if input.input_direction.length() > 0.1:
+				walk_val = lerpf(walk_val, 1, blend_speed * delta)
+				crouch_val = lerpf(crouch_val, 0.7, blend_speed * delta)
+			else:
+				walk_val = lerpf(walk_val, 0, blend_speed * delta)
+				crouch_val = lerpf(crouch_val, 1, blend_speed * delta)
+			jump_val = lerpf(jump_val, 0, blend_speed * delta)
+			hold_val = lerpf(hold_val, 0, blend_speed * delta)
 	update_tree()
 
 func update_tree():
+	anim_tree["parameters/Walk/blend_amount"] = walk_val
 	anim_tree["parameters/Jump/blend_amount"] = jump_val
 	anim_tree["parameters/Hold/blend_amount"] = hold_val
+	anim_tree["parameters/Crouch/blend_amount"] = crouch_val
 
 func update_animation_states():
 	if is_on_floor():
-		curAnim = IDLE
-		if is_holding:
+		if input.input_direction.length() > 0.1:
+			if speed == WALK_SPEED:
+				curAnim = WALK
+			if speed == SPRINT_SPEED:
+				curAnim = RUN
+		elif is_holding:
 			curAnim = HOLD
+		else:
+			curAnim = IDLE
+		if is_crouching:
+			curAnim = CROUCH
 	else:
 		curAnim = JUMP
