@@ -13,9 +13,10 @@ config_version=5
 config/name="monke-sim"
 run/main_scene="uid://wau7ipdwnh5o"
 config/features=PackedStringArray("4.4", "Forward Plus")
-boot_splash/bg_color=Color(0.0392157, 0.278431, 0.184314, 1)
-boot_splash/image="res://assets/sprites/monkey_splash.png"
-config/icon="res://assets/sprites/logo.svg"
+boot_splash/bg_color=Color(0.0526713, 0.0900931, 0.0788793, 1)
+boot_splash/image="uid://ecwdkh8knssl"
+config/icon="uid://dbocddu2wksa5"
+config/windows_native_icon="res://assets/sprites/logo.ico"
 boot_splash/minimum_display_time=2000
 
 [display]

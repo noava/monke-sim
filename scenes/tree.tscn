@@ -12,6 +12,8 @@ data = PackedVector3Array(-0.0524, 9.3141, 1.859, 0.3684, 8.5253, 0.1304, -0.045
 [node name="BubingaTree_mesh" parent="Tree" index="0"]
 layers = 2
 lod_bias = 0.1
+visibility_range_end = 200.0
+visibility_range_fade_mode = 1
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Tree/BubingaTree_mesh" index="0"]
 
