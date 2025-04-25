@@ -65,11 +65,24 @@ var crouch_val = 0
 @onready var hook_raycast: RayCast3D = %"Long Raycast"
 @onready var hook_controller: HookController = $HookController
 @onready var health_component: Node3D = $HealthComponent
+@onready var name_label_3d: Label3D = %NameLabel3D
 
-@export var player_name: String = "Unnamed" :
-	set(value):
+var player_name: String = "Unnamed":
+	set = set_player_name, get = get_player_name
+
+func set_player_name(value):
+	if value != "":
 		player_name = value
-		%NameLabel3D.text = value
+		if name_label_3d:
+			name_label_3d.text = player_name
+
+func get_player_name():
+	return player_name
+
+@rpc("any_peer")
+func sync_player_name(name: String):
+	set_player_name(name)
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
@@ -80,8 +93,6 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
 	player_mesh.visible = false
-	
-	player_name = player_name
 	
 func _unhandled_input(event):
 	if not is_multiplayer_authority(): return

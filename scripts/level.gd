@@ -24,11 +24,14 @@ func add_player(id: int):
 	character.position = Vector3(pos.x * SPAWN_RANDOM * randf(), 0, pos.y * SPAWN_RANDOM * randf())
 	
 	character.name = str(id)
-	character.player_name = "Player " + str(id)
 	# TODO Fix update player names for non hosts. Also add player_display_name variable somehow
 	
 	$Players.add_child(character, true)
-
+	
+	var player_name = "Player " + str(id)
+	character.set_player_name(player_name)
+	character.rpc("sync_player_name", player_name)
+	
 	print("Added player:", character.player_name, " at ", character.position)
 
 
