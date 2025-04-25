@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://caiaip3jp3cmc"]
+
+[ext_resource type="Script" uid="uid://7ox6pynd1cqc" path="res://inventory/item_data.gd" id="1_r7hd4"]
+[ext_resource type="Texture2D" uid="uid://c7pw5fxjlookf" path="res://inventory/items/bananas_mg.png" id="2_4wtj4"]
+
+[resource]
+script = ExtResource("1_r7hd4")
+name = "BananaS MG"
+texture = ExtResource("2_4wtj4")
+damage = 7.0
+item_type = 1
+metadata/_custom_type_script = "uid://7ox6pynd1cqc"

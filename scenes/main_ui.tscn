@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://wau7ipdwnh5o"]
 
 [ext_resource type="Script" uid="uid://d1l3aka2qhdeg" path="res://scripts/multiplayer.gd" id="1_fnul3"]
-[ext_resource type="Script" path="res://scenes/main_menu.gd" id="2_513t2"]
+[ext_resource type="Script" uid="uid://xuhj0rp7orsb" path="res://scenes/main_menu.gd" id="2_513t2"]
 [ext_resource type="Theme" uid="uid://c87d05qpvxeyn" path="res://assets/ui/theme/main_ui_theme.tres" id="2_i1gbh"]
 [ext_resource type="Texture2D" uid="uid://defexvqhy3qwh" path="res://assets/ui/monke_bg.png" id="5_i1gbh"]
 [ext_resource type="Script" uid="uid://dv3cgln4j4klb" path="res://assets/ui/theme/hover_slide.gd" id="5_scoti"]
@@ -227,12 +227,54 @@ offset_bottom = -122.0
 script = ExtResource("5_scoti")
 
 [node name="HowToPlay" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = -60.0
+offset_right = 50.0
+offset_bottom = -60.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HowToPlay"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -236.0
+offset_right = 230.0
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Label" type="Label" parent="UI/HowToPlay/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.635294, 0.356863, 1)
+text = "How To Play"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/HowToPlay/VBoxContainer"]
+layout_mode = 2
+text = "Walk: 		WASD
+Run:			Shift
+Jump: 		Space
+E:				Interact
+0-9: 			Use items in hotbar"
+fit_content = true
+
+[node name="Label2" type="Label" parent="UI/HowToPlay/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 0.635294, 0.356863, 1)
+theme_override_font_sizes/font_size = 20
+text = "What to do?"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="UI/HowToPlay/VBoxContainer"]
+layout_mode = 2
+text = "Collect Bananas, Buy Items, Shoot Players and of course SWINGGGGGGGGGGGGG"
+fit_content = true
 
 [node name="Credits" type="Control" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -248,7 +290,7 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -165.0
+offset_top = -185.0
 offset_right = 145.0
 grow_vertical = 0
 
@@ -264,35 +306,20 @@ layout_mode = 2
 theme_override_constants/separation = 15
 alignment = 2
 
-[node name="HBoxContainer" type="VBoxContainer" parent="UI/Credits/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Name" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Noava"
 vertical_alignment = 1
 
-[node name="Contribution" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer/HBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0.78, 0.6864, 0.5928, 1)
-theme_override_font_sizes/font_size = 16
-text = "- adwdawd"
-
-[node name="HBoxContainer2" type="VBoxContainer" parent="UI/Credits/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Name" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Name2" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Limorinho"
 vertical_alignment = 1
 
-[node name="Contribution" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer/HBoxContainer2"]
-visible = false
+[node name="Name3" type="Label" parent="UI/Credits/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.780392, 0.686275, 0.592157, 1)
-theme_override_font_sizes/font_size = 16
-text = "- lalal"
+text = "Dogfetus"
+vertical_alignment = 1
 
 [node name="HomeBtn" type="Control" parent="UI"]
 layout_mode = 3

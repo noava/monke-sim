@@ -1,21 +1,65 @@
-[gd_scene load_steps=29 format=3 uid="uid://dox504m0gs4gt"]
+[gd_scene load_steps=55 format=3 uid="uid://dox504m0gs4gt"]
 
 [ext_resource type="Script" uid="uid://jt2mrc0ijup0" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://csfen031fflem" path="res://scripts/hook_controller.gd" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://s2tb0yomgv11" path="res://scripts/player_input.gd" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://p78nvnxpksgh" path="res://assets/models/banana_gun.glb" id="2_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://35idgp7boa6m" path="res://assets/models/chimbanzee.glb" id="2_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://p341jcb8s4bg" path="res://assets/models/vine_grapple.glb" id="3_60mlk"]
 [ext_resource type="Texture2D" uid="uid://mqqqq7xb03a" path="res://assets/sprites/star_05.png" id="3_fjrip"]
 [ext_resource type="Script" uid="uid://dhx3vun3cc8oe" path="res://scripts/banana_gun.gd" id="3_smehm"]
-[ext_resource type="Texture2D" uid="uid://cskw882fffi36" path="res://assets/sprites/hook_available.png" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://oyxjyu5a4lj7" path="res://scripts/vine_grapple.gd" id="4_i4ail"]
 [ext_resource type="PackedScene" uid="uid://cchpdf1x63oa5" path="res://inventory/inv_ui.tscn" id="6_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://cxdsadvdbmlk5" path="res://assets/models/banana_sniper.glb" id="8_4ni07"]
+[ext_resource type="Texture2D" uid="uid://cr0s3e656yh8l" path="res://assets/sprites/crosshair.png" id="9_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://bwovawmgiyvc8" path="res://assets/sprites/hitmarker.png" id="9_d2wvv"]
+[ext_resource type="PackedScene" uid="uid://cgfvuqmla6a7s" path="res://assets/models/bananas_mg.glb" id="9_l71n6"]
 [ext_resource type="Script" uid="uid://d04thcbw25pd0" path="res://scripts/health_component.gd" id="9_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://ddo0rvhsdm4ca" path="res://scenes/in_game_menu.tscn" id="11_d2wvv"]
+[ext_resource type="Texture2D" uid="uid://d2tnir1vl7wik" path="res://assets/ui/health_bar/Under.png" id="12_oprun"]
+[ext_resource type="Texture2D" uid="uid://cboohhptw0e0l" path="res://assets/ui/health_bar/Over.png" id="13_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://cxin6m6su67ln" path="res://assets/ui/health_bar/Progress.png" id="14_oprun"]
+[ext_resource type="Texture2D" uid="uid://4x2b7fskyn8q" path="res://assets/ui/Banana UI.png" id="15_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://barg1rnc2oreh" path="res://assets/ui/bits_and_bobs/Healthbar Dots and Lines.png" id="17_60mlk"]
+[ext_resource type="Texture2D" uid="uid://u6mwn68qn4e5" path="res://assets/ui/bits_and_bobs/UpperLeft.png" id="18_4r5pv"]
+[ext_resource type="Texture2D" uid="uid://busrjol2tj4g2" path="res://assets/ui/bits_and_bobs/LowerRight.png" id="19_60mlk"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6fml"]
-albedo_color = Color(0.823039, 0.413615, 0.205021, 1)
+[sub_resource type="Animation" id="Animation_wkx32"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder/Banana Gun:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.5708, 2.79397e-09, 0)]
+}
 
-[sub_resource type="BoxMesh" id="BoxMesh_3li8b"]
+[sub_resource type="Animation" id="Animation_fjrip"]
+resource_name = "shoot"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder/Banana Gun:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector3(2.01935, 0, 0), Vector3(1.5708, 2.79397e-09, 0)]
+}
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gntrk"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uwk8q"]
+_data = {
+&"RESET": SubResource("Animation_wkx32"),
+&"shoot": SubResource("Animation_fjrip")
+}
 
 [sub_resource type="Gradient" id="Gradient_fjrip"]
 offsets = PackedFloat32Array(0, 0.227273, 1)
@@ -43,149 +87,165 @@ particles_anim_loop = false
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_smehm"]
 material = SubResource("StandardMaterial3D_fjrip")
-size = Vector2(0.5, 0.5)
+size = Vector2(0.3, 0.3)
 orientation = 2
 
-[sub_resource type="Animation" id="Animation_b2ed3"]
-resource_name = "Crouch"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D:shape:height")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [2.0, 1.5]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D:shape:height")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [2.0, 1.5]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1, 0), Vector3(0, 0.75, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_wkx32"]
+[sub_resource type="Animation" id="Animation_l71n6"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape3D:shape:height")
+tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [2.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape3D:shape:height")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape3D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Head/Camera3D/banana_gun:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.475963, -0.236129, -0.387099)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Head/Camera3D/banana_gun:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
+"values": [Vector3(1.5708, -3.14159, -3.14159)]
 }
 
-[sub_resource type="Animation" id="Animation_tuyoq"]
-resource_name = "idle"
-length = 3.0
-
-[sub_resource type="Animation" id="Animation_fjrip"]
+[sub_resource type="Animation" id="Animation_4ni07"]
 resource_name = "shoot"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.16295, 3.14159, 3.14159), Vector3(0.437868, 3.14159, 3.14159), Vector3(1.18295, 3.14159, 3.14159), Vector3(1.49079, 3.14159, 3.14159)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l71n6"]
+_data = {
+&"RESET": SubResource("Animation_l71n6"),
+&"shoot": SubResource("Animation_4ni07")
+}
+
+[sub_resource type="Animation" id="Animation_ujl30"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.41721, -1.81092, -1.88785)]
+}
+
+[sub_resource type="Animation" id="Animation_ke2ow"]
+resource_name = "shoot"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1.38126, -2.1214, -2.18798), Vector3(1.41721, -1.81092, -1.88785)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_31cv2"]
+_data = {
+&"RESET": SubResource("Animation_ujl30"),
+&"shoot": SubResource("Animation_ke2ow")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l71n6"]
+animation = &"Crouch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y4r1p"]
+animation = &"HoldItem"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d2wvv"]
+animation = &"Pose"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3v2ag"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4ni07"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ke2ow"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_jej6c"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_f1ej7"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l71n6"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_oprun"]
+graph_offset = Vector2(-552.193, 54.4564)
+"nodes/Anim Crouching/node" = SubResource("AnimationNodeAnimation_l71n6")
+"nodes/Anim Crouching/position" = Vector2(0, 280)
+"nodes/Anim Holding/node" = SubResource("AnimationNodeAnimation_y4r1p")
+"nodes/Anim Holding/position" = Vector2(-200, 280)
+"nodes/Anim Idle/node" = SubResource("AnimationNodeAnimation_d2wvv")
+"nodes/Anim Idle/position" = Vector2(-600, 0)
+"nodes/Anim Jumping/node" = SubResource("AnimationNodeAnimation_3v2ag")
+"nodes/Anim Jumping/position" = Vector2(-400, 280)
+"nodes/Anim Walking/node" = SubResource("AnimationNodeAnimation_4ni07")
+"nodes/Anim Walking/position" = Vector2(-600, 280)
+nodes/Crouch/node = SubResource("AnimationNodeBlend2_ke2ow")
+nodes/Crouch/position = Vector2(200, 0)
+nodes/Hold/node = SubResource("AnimationNodeBlend2_jej6c")
+nodes/Hold/position = Vector2(0, 0)
+nodes/Jump/node = SubResource("AnimationNodeBlend2_f1ej7")
+nodes/Jump/position = Vector2(-200, 0)
+nodes/Walk/node = SubResource("AnimationNodeBlend2_l71n6")
+nodes/Walk/position = Vector2(-400, 0)
+nodes/output/position = Vector2(400, 0)
+node_connections = [&"Crouch", 0, &"Hold", &"Crouch", 1, &"Anim Crouching", &"Hold", 0, &"Jump", &"Hold", 1, &"Anim Holding", &"Jump", 0, &"Walk", &"Jump", 1, &"Anim Jumping", &"Walk", 0, &"Anim Idle", &"Walk", 1, &"Anim Walking", &"output", 0, &"Crouch"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gntrk"]
+
+[sub_resource type="Animation" id="Animation_31cv2"]
+resource_name = "camera_crouch"
 length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Head/Camera3D/banana_gun:position")
-tracks/0/interp = 1
+tracks/0/path = NodePath("Head:position")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.475963, -0.220868, -0.387099), Vector3(0.475963, -0.236129, -0.387099)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Head/Camera3D/banana_gun:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Vector3(0.284698, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 1.7352, -0.102733), Vector3(0, 1.257, -0.103)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_uwk8q"]
+[sub_resource type="Animation" id="Animation_pf23h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.7352, -0.102733)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dt7fs"]
 _data = {
-&"Crouch": SubResource("Animation_b2ed3"),
-&"RESET": SubResource("Animation_wkx32"),
-&"idle": SubResource("Animation_tuyoq"),
-&"shoot": SubResource("Animation_fjrip")
+&"RESET": SubResource("Animation_pf23h"),
+&"camera_crouch": SubResource("Animation_31cv2")
 }
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_b2ed3"]
@@ -207,35 +267,21 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath("NameLabel3D:text")
 properties/5/spawn = true
 properties/5/replication_mode = 1
+properties/6/path = NodePath("player_model:rotation")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath(".:curAnim")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath(".:visible")
+properties/8/spawn = true
+properties/8/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rpqav"]
-properties/0/path = NodePath(".:input_direction")
-properties/0/spawn = false
-properties/0/replication_mode = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur7pv"]
-bg_color = Color(0.727778, 0, 0.286431, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4r1p"]
-bg_color = Color(0.431373, 0.67451, 0.14902, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d2wvv"]
-bg_color = Color(0.47, 0.370203, 0.00939999, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.748686, 0.592586, 0.0178003, 1)
-corner_radius_top_left = 100
-corner_radius_top_right = 10
-corner_radius_bottom_right = 100
-corner_radius_bottom_left = 100
-corner_detail = 20
-shadow_size = 2
-shadow_offset = Vector2(2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_3v2ag"]
-font_color = Color(0.999708, 0.954249, 0.835441, 1)
+font_size = 14
+font_color = Color(0.964706, 0.85098, 0.737255, 1)
 outline_size = 1
 outline_color = Color(0.380934, 0.301044, 0.00826607, 1)
 shadow_size = 2
@@ -243,37 +289,169 @@ shadow_color = Color(0, 0, 0, 0.458824)
 
 [node name="player" type="CharacterBody3D"]
 script = ExtResource("1_g2els")
+metadata/_edit_horizontal_guides_ = [344.0, 10.0]
+metadata/_edit_vertical_guides_ = [10.0, 630.0]
 
-[node name="player_model" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0)
-layers = 2
-material_override = SubResource("StandardMaterial3D_v6fml")
-mesh = SubResource("BoxMesh_3li8b")
+[node name="player_model" parent="." instance=ExtResource("2_y4r1p")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_gntrk")
+[node name="Skeleton3D" parent="player_model/rig" index="0"]
+bones/1/position = Vector3(-8.76781e-11, 0.0512534, 0.986455)
+bones/8/position = Vector3(0.49087, 0.118616, 1.09306)
+bones/8/rotation = Quaternion(0.24716, 0.929015, -0.035768, -0.273065)
+bones/8/scale = Vector3(1, 18.2365, 1)
+bones/9/position = Vector3(-0.49087, 0.118616, 1.09306)
+bones/9/rotation = Quaternion(-0.24716, 0.929015, -0.035768, 0.273065)
+bones/9/scale = Vector3(1, 18.2365, 1)
+bones/10/position = Vector3(0.2024, 0.0500971, 0.501171)
+bones/10/rotation = Quaternion(0.902554, 0.159887, -0.377396, 0.131928)
+bones/10/scale = Vector3(1, 20.9212, 1)
+bones/11/position = Vector3(-0.2024, 0.0500969, 0.501171)
+bones/11/rotation = Quaternion(0.902554, -0.159887, 0.377396, 0.131928)
+bones/11/scale = Vector3(1, 20.9212, 1)
+bones/26/rotation = Quaternion(0.930652, 0.0554195, -0.200838, 0.300797)
+bones/26/scale = Vector3(1, 0.999999, 1)
+bones/27/rotation = Quaternion(0.294541, 2.47155e-08, -2.17255e-08, 0.955639)
+bones/27/scale = Vector3(1, 1, 1)
+bones/28/rotation = Quaternion(-0.614968, 0.0705439, 0.0814183, 0.781158)
+bones/28/scale = Vector3(1, 1, 1)
+bones/29/rotation = Quaternion(0.0420881, 0.968497, -0.24521, 0.0106585)
+bones/33/scale = Vector3(1, 1, 1)
+bones/35/rotation = Quaternion(5.53483e-08, 0.0395745, 7.30494e-08, 0.999217)
+bones/35/scale = Vector3(0.999999, 1, 1)
+bones/37/scale = Vector3(1, 1, 1)
+bones/38/rotation = Quaternion(1.88127e-07, -4.19095e-08, -5.40167e-08, 1)
+bones/38/scale = Vector3(1, 1, 1)
+bones/40/rotation = Quaternion(0.930652, -0.0554196, 0.200839, 0.300797)
+bones/40/scale = Vector3(1, 1, 1)
+bones/41/rotation = Quaternion(0.294542, -2.06879e-08, 1.03929e-08, 0.955639)
+bones/41/scale = Vector3(1, 1, 1)
+bones/42/rotation = Quaternion(-0.614968, -0.0705439, -0.0814183, 0.781158)
+bones/42/scale = Vector3(1, 1, 0.999999)
+bones/43/rotation = Quaternion(-0.0420881, 0.968497, -0.24521, -0.0106585)
+bones/47/scale = Vector3(1, 1, 1)
+bones/49/rotation = Quaternion(-1.1733e-07, -0.0395744, -1.19177e-08, 0.999217)
+bones/49/scale = Vector3(0.999999, 1, 1)
+bones/51/scale = Vector3(1, 1, 1)
+bones/52/rotation = Quaternion(-1.41561e-07, 5.68107e-08, -1.30385e-08, 1)
+bones/52/scale = Vector3(0.999999, 1, 1)
+bones/56/rotation = Quaternion(-0.80781, -0.1927, 0.0792108, 0.551395)
+bones/57/rotation = Quaternion(0.294542, 3.86473e-08, -1.33097e-08, 0.955639)
+bones/59/rotation = Quaternion(-2.70084e-08, 6.12509e-07, -6.72041e-08, 1)
+bones/61/rotation = Quaternion(-2.27592e-08, 2.61061e-07, -9.48057e-08, 1)
+bones/62/rotation = Quaternion(-0.716633, -0.22443, 0.153825, 0.642188)
+bones/63/rotation = Quaternion(-0.135483, 0.0674964, 0.00925163, 0.988435)
+bones/63/scale = Vector3(1, 1, 1)
+bones/64/rotation = Quaternion(0.294541, 2.39013e-08, -1.89593e-08, 0.955639)
+bones/64/scale = Vector3(1, 1, 1)
+bones/65/rotation = Quaternion(0.930652, 0.0554194, -0.200839, 0.300797)
+bones/67/rotation = Quaternion(0.930652, 0.0554195, -0.200839, 0.300797)
+bones/67/scale = Vector3(1, 0.999999, 1)
+bones/68/rotation = Quaternion(8.75443e-08, 6.51926e-08, -1.86265e-08, 1)
+bones/69/rotation = Quaternion(0.294541, 1.09325e-07, -1.44287e-09, 0.955639)
+bones/69/scale = Vector3(1, 1, 1)
+bones/70/rotation = Quaternion(-2.69502e-08, 3.1665e-08, 4.51692e-08, 1)
+bones/71/rotation = Quaternion(-0.614968, 0.0705433, 0.0814183, 0.781159)
+bones/72/rotation = Quaternion(0.0420878, 0.968497, -0.24521, 0.0106581)
+bones/72/scale = Vector3(1, 1, 1)
+bones/75/rotation = Quaternion(-0.80781, 0.1927, -0.0792108, 0.551395)
+bones/76/rotation = Quaternion(0.294542, -5.93e-08, 4.6402e-08, 0.955639)
+bones/78/rotation = Quaternion(-6.98492e-09, -5.65911e-07, 1.16827e-07, 1)
+bones/79/rotation = Quaternion(-0.0420884, 0.968497, -0.24521, -0.0106586)
+bones/80/rotation = Quaternion(2.85218e-09, -2.48139e-07, 1.01394e-07, 1)
+bones/81/rotation = Quaternion(-0.716633, 0.22443, -0.153825, 0.642188)
+bones/82/rotation = Quaternion(-0.135483, -0.0674964, -0.00925165, 0.988435)
+bones/82/scale = Vector3(1, 1, 1)
+bones/83/rotation = Quaternion(0.294542, -2.02883e-08, 5.77514e-09, 0.955639)
+bones/83/scale = Vector3(1, 1, 1)
+bones/84/rotation = Quaternion(0.930652, -0.0554195, 0.200839, 0.300798)
+bones/86/rotation = Quaternion(0.930652, -0.0554195, 0.200839, 0.300798)
+bones/86/scale = Vector3(1, 0.999999, 1)
+bones/87/rotation = Quaternion(-4.09782e-08, -4.28408e-08, -7.45058e-09, 1)
+bones/88/rotation = Quaternion(0.294542, -1.15112e-07, 1.90218e-08, 0.955639)
+bones/88/scale = Vector3(1, 1, 1)
+bones/89/rotation = Quaternion(-3.11411e-08, 2.98023e-08, 1.97906e-08, 1)
+bones/90/rotation = Quaternion(-0.614969, -0.0705434, -0.0814185, 0.781158)
+bones/90/scale = Vector3(1, 1, 1)
+bones/91/rotation = Quaternion(-0.0420878, 0.968498, -0.24521, -0.0106581)
+bones/91/scale = Vector3(1, 1, 1)
+bones/116/position = Vector3(-0.067632, 0.238664, -0.0474365)
+bones/116/rotation = Quaternion(-0.0773313, 0.756866, -0.481384, 0.435251)
+bones/117/rotation = Quaternion(0.43719, 2.09483e-07, -1.29306e-07, 0.899369)
+bones/118/rotation = Quaternion(0.0476794, 0.0227693, -0.430332, 0.901123)
+bones/123/rotation = Quaternion(1.33752e-07, 0.0119757, 9.03323e-08, 0.999928)
+bones/126/rotation = Quaternion(-1.43656e-07, 1.1176e-08, -5.12229e-09, 1)
+bones/131/position = Vector3(1.94154e-08, -4.66408e-09, -2.87415e-08)
+bones/131/rotation = Quaternion(0.308426, 0.695369, -0.634111, 0.138701)
+bones/132/rotation = Quaternion(0.43719, 1.97404e-07, -1.05846e-07, 0.899369)
+bones/134/rotation = Quaternion(-5.58793e-08, -8.19564e-08, -9.31322e-08, 1)
+bones/135/rotation = Quaternion(-0.274397, -0.531667, 0.794223, -0.106049)
+bones/136/rotation = Quaternion(-0.220494, 0.0709613, 0.0160862, 0.972671)
+bones/136/scale = Vector3(0.999999, 1, 1)
+bones/137/rotation = Quaternion(0.43719, 1.79692e-07, -6.9083e-08, 0.899369)
+bones/137/scale = Vector3(1, 1, 1)
+bones/138/position = Vector3(-0.067632, 0.238664, -0.0474365)
+bones/138/rotation = Quaternion(-0.0773313, 0.756866, -0.481384, 0.435251)
+bones/140/position = Vector3(-0.067632, 0.238664, -0.0474365)
+bones/140/rotation = Quaternion(-0.0773313, 0.756866, -0.481384, 0.435251)
+bones/141/rotation = Quaternion(-3.49248e-10, -9.31322e-08, -4.30154e-08, 1)
+bones/142/rotation = Quaternion(0.43719, -1.37739e-07, -2.34003e-07, 0.899369)
+bones/143/rotation = Quaternion(-2.6077e-08, -2.45869e-07, -6.70552e-08, 1)
+bones/144/rotation = Quaternion(0.0476792, 0.0227699, -0.430332, 0.901123)
+bones/146/rotation = Quaternion(0.0773312, 0.756866, -0.481384, -0.435251)
+bones/147/rotation = Quaternion(0.43719, -1.40608e-07, 1.1169e-07, 0.899369)
+bones/148/rotation = Quaternion(0.0476795, -0.0227694, 0.430332, 0.901123)
+bones/153/rotation = Quaternion(-1.02165e-07, -0.0119759, 7.75039e-08, 0.999928)
+bones/156/rotation = Quaternion(4.83123e-08, -1.86265e-08, -3.23344e-08, 1)
+bones/161/rotation = Quaternion(-0.308426, 0.695369, -0.634111, -0.138701)
+bones/162/rotation = Quaternion(0.43719, -1.39391e-07, 1.03401e-07, 0.899369)
+bones/164/rotation = Quaternion(5.21541e-08, 8.6613e-08, 5.96046e-08, 1)
+bones/165/rotation = Quaternion(0.274397, -0.531667, 0.794223, 0.106048)
+bones/166/rotation = Quaternion(-0.220494, -0.0709612, -0.0160861, 0.972671)
+bones/166/scale = Vector3(1, 1, 1)
+bones/167/rotation = Quaternion(0.437191, -4.75865e-08, 2.75799e-08, 0.899369)
+bones/167/scale = Vector3(1, 1, 1)
+bones/168/rotation = Quaternion(0.0773312, 0.756866, -0.481384, -0.435251)
+bones/170/rotation = Quaternion(0.0773311, 0.756866, -0.481384, -0.435251)
+bones/171/rotation = Quaternion(1.9907e-08, 4.09783e-08, 8.97271e-08, 1)
+bones/172/rotation = Quaternion(0.43719, 3.5459e-07, 1.82796e-07, 0.899369)
+bones/173/rotation = Quaternion(-4.84288e-08, 4.84288e-08, 7.45058e-08, 1)
+bones/174/rotation = Quaternion(0.0476794, -0.0227701, 0.430332, 0.901123)
+bones/187/position = Vector3(0.881112, 0.914274, -0.895438)
+bones/190/rotation = Quaternion(0.174204, -0.417288, 0.792418, -0.409387)
+bones/193/rotation = Quaternion(-0.403307, -3.80652e-08, 0.880327, -0.249734)
+bones/202/rotation = Quaternion(0.968974, 0.103495, -0.0238426, -0.22318)
+bones/205/rotation = Quaternion(-0.00135244, 0.0215524, 0.988565, -0.149242)
+bones/206/position = Vector3(0.54245, 0.604066, 0.750609)
+bones/216/rotation = Quaternion(0.968974, -0.103495, 0.0238426, -0.22318)
+bones/220/position = Vector3(-0.54245, 0.604066, 0.750609)
 
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="player_model/rig/Skeleton3D" index="1"]
+transform = Transform3D(-0.604111, 0.503424, 0.617748, -0.0655804, -0.803966, 0.591047, 0.794196, 0.316546, 0.5187, -0.596831, 0.793441, 0.249972)
+bone_name = "hand_fk.R"
+bone_idx = 164
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.268209, -0.354033)
+[node name="vine_grapple" parent="player_model/rig/Skeleton3D/BoneAttachment3D" instance=ExtResource("3_60mlk")]
+unique_name_in_owner = true
+transform = Transform3D(-6.23986e-08, -1, 0, -4.84288e-08, 4.47035e-08, -1, 1, -8.47504e-08, -4.09782e-08, -0.0153465, 0.0505067, 0.00775111)
+visible = false
+script = ExtResource("4_i4ail")
 
-[node name="Grab Ray" type="RayCast3D" parent="Head/Camera3D"]
-target_position = Vector3(0, 0, -2.5)
-
-[node name="Grab Target" type="Node3D" parent="Head/Camera3D/Grab Ray"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
-
-[node name="Hook Raycast" type="RayCast3D" parent="Head/Camera3D"]
-target_position = Vector3(0, 0, -50)
-
-[node name="banana_gun" parent="Head/Camera3D" instance=ExtResource("2_tuyoq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.475963, -0.236129, -0.387099)
+[node name="WeaponsHolder" type="Node3D" parent="player_model/rig/Skeleton3D/BoneAttachment3D"]
 script = ExtResource("3_smehm")
 
-[node name="MuzzleFlash" type="GPUParticles3D" parent="Head/Camera3D/banana_gun"]
+[node name="Banana Gun" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder" instance=ExtResource("2_tuyoq")]
+transform = Transform3D(1, 2.79397e-09, -1.01141e-14, 0, -3.61999e-06, -1, -2.79397e-09, 1, -3.61999e-06, -0.0192596, 0.0490643, 0.0782372)
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder/Banana Gun"]
+root_node = NodePath("../../../../../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_uwk8q")
+}
+playback_default_blend_time = 0.05
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder/Banana Gun"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0438679, -0.133345)
 emitting = false
 amount = 1
@@ -283,14 +461,78 @@ local_coords = true
 process_material = SubResource("ParticleProcessMaterial_tuyoq")
 draw_pass_1 = SubResource("PlaneMesh_smehm")
 
+[node name="Banana Sniper" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder" instance=ExtResource("8_4ni07")]
+transform = Transform3D(1, 0, 9.17733e-12, 9.17733e-12, 3.61999e-06, -1, 0, 1, 3.61999e-06, -0.0210453, 0.0382147, 0.0613816)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder/Banana Sniper"]
+libraries = {
+&"": SubResource("AnimationLibrary_l71n6")
+}
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder/Banana Sniper"]
+transform = Transform3D(1, -1.86265e-08, -1.49012e-08, -1.39698e-09, 1, 0, 2.98023e-08, 0, 1, -0.00496441, 0.0410675, -0.549033)
+emitting = false
+amount = 1
+lifetime = 0.25
+one_shot = true
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_tuyoq")
+draw_pass_1 = SubResource("PlaneMesh_smehm")
+
+[node name="BananaS MG" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder" instance=ExtResource("9_l71n6")]
+transform = Transform3D(0.986179, 0.0732896, -0.148594, -0.145358, -0.0476954, -0.988229, -0.0795141, 0.99617, -0.0363829, -0.0279677, 0.0719638, 0.046955)
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder/BananaS MG"]
+libraries = {
+&"": SubResource("AnimationLibrary_31cv2")
+}
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="player_model/rig/Skeleton3D/BoneAttachment3D/WeaponsHolder/BananaS MG"]
+transform = Transform3D(1, -9.31323e-09, -7.45058e-09, 4.65661e-09, 1, 1.49012e-08, 0, 1.04308e-07, 1, -0.000613391, 0.0100751, -0.223832)
+emitting = false
+amount = 1
+lifetime = 0.25
+one_shot = true
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_tuyoq")
+draw_pass_1 = SubResource("PlaneMesh_smehm")
+
+[node name="AnimationTree" type="AnimationTree" parent="player_model"]
+tree_root = SubResource("AnimationNodeBlendTree_oprun")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Crouch/blend_amount = 0.0
+parameters/Hold/blend_amount = 0.0
+parameters/Jump/blend_amount = 0.0
+parameters/Walk/blend_amount = 0.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_gntrk")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7352, -0.102733)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="Grab Ray" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -2.5)
+
+[node name="Grab Target" type="Node3D" parent="Head/Camera3D/Grab Ray"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="Long Raycast" type="RayCast3D" parent="Head/Camera3D"]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -50)
+
+[node name="CameraAnimationPlayer" type="AnimationPlayer" parent="Head"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_dt7fs")
+}
+
 [node name="HookController" type="Node" parent="."]
 script = ExtResource("2_dqkch")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_uwk8q")
-}
-playback_default_blend_time = 0.05
 
 [node name="ServerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_b2ed3")
@@ -317,38 +559,81 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("4_dqkch")
+texture = ExtResource("9_3v2ag")
+expand_mode = 1
+
+[node name="Hitmarker" type="TextureRect" parent="HUD"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_d2wvv")
+expand_mode = 1
 
 [node name="Inv_UI" parent="HUD" instance=ExtResource("6_tuyoq")]
 offset_left = -186.0
-offset_top = -58.0
+offset_top = -56.0
 offset_right = 186.0
-offset_bottom = -10.0
+offset_bottom = -8.0
 
-[node name="HealthBar" type="ProgressBar" parent="HUD"]
-anchors_preset = 15
-anchor_right = 1.0
+[node name="HealthBar" type="TextureProgressBar" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 159.0
-offset_top = 27.0
-offset_right = -159.0
-offset_bottom = -296.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_ur7pv")
-theme_override_styles/fill = SubResource("StyleBoxFlat_y4r1p")
-max_value = 10.0
-value = 10.0
-show_percentage = false
+offset_left = 20.0
+offset_top = -50.0
+offset_right = 144.0
+offset_bottom = -16.0
+grow_vertical = 0
+value = 65.0
+nine_patch_stretch = true
+texture_under = ExtResource("12_oprun")
+texture_over = ExtResource("13_a8ls1")
+texture_progress = ExtResource("14_oprun")
 
-[node name="PanelContainer" type="PanelContainer" parent="HUD"]
+[node name="Amount" type="Label" parent="HUD/HealthBar"]
+layout_mode = 0
+offset_left = -30.0
+offset_top = -17.0
+offset_right = 29.0
+offset_bottom = 10.36
+theme_override_colors/font_color = Color(0.552941, 0.101961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.0823529, 0.105882, 0.113725, 1)
+theme_override_font_sizes/font_size = 20
+text = "100"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="HP" type="Label" parent="HUD/HealthBar"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = -17.0
+offset_right = 72.0
+offset_bottom = 10.36
+theme_override_colors/font_color = Color(0.552941, 0.101961, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.0823529, 0.105882, 0.113725, 1)
+theme_override_font_sizes/font_size = 20
+text = "HP"
+vertical_alignment = 2
+
+[node name="BananaUI" type="Control" parent="HUD"]
+layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -357,25 +642,144 @@ offset_top = 10.0
 offset_right = -10.0
 offset_bottom = 51.0
 grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_d2wvv")
 
-[node name="MarginContainer" type="MarginContainer" parent="HUD/PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="HUD/BananaUI"]
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 4
+offset_left = -13.0
+offset_right = 53.0
+offset_bottom = 51.0
+texture = ExtResource("15_a8ls1")
+expand_mode = 1
 
-[node name="BananaCount" type="Label" parent="HUD/PanelContainer/MarginContainer"]
+[node name="BananaCount" type="Label" parent="HUD/BananaUI"]
 layout_mode = 2
-text = "1000"
+offset_left = -9.0
+offset_top = 9.0
+offset_right = 44.0
+offset_bottom = 23.592
+text = "00420"
 label_settings = SubResource("LabelSettings_3v2ag")
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 text_overrun_behavior = 3
 ellipsis_char = "+"
+
+[node name="InGameMenu" parent="HUD" instance=ExtResource("11_d2wvv")]
+visible = false
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="DeathScreen" type="Control" parent="HUD"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="BG" type="ColorRect" parent="HUD/DeathScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0823529, 0.105882, 0.113725, 1)
+
+[node name="Label" type="Label" parent="HUD/DeathScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -7.296
+offset_right = 20.0
+offset_bottom = 7.296
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.803922, 0.435294, 0.176471, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.74902)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 50
+text = "You died"
+
+[node name="Bits and bobs" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HealthBar" type="TextureRect" parent="HUD/Bits and bobs"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 294.0
+offset_right = 147.0
+offset_bottom = 347.0
+texture = ExtResource("17_60mlk")
+expand_mode = 3
+
+[node name="UpperLeft" type="TextureRect" parent="HUD/Bits and bobs"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 152.0
+offset_bottom = 85.0
+texture = ExtResource("18_4r5pv")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HUD/Bits and bobs"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 146.0
+offset_right = 70.0
+offset_bottom = 160.592
+rotation = 4.71238
+theme_override_colors/font_color = Color(0.964706, 0.85098, 0.737255, 1)
+theme_override_font_sizes/font_size = 10
+text = "Apr 2025"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="HUD/Bits and bobs"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 10.0
+offset_right = 128.0
+offset_bottom = 24.592
+theme_override_colors/font_color = Color(0.964706, 0.85098, 0.737255, 1)
+theme_override_font_sizes/font_size = 10
+text = "monke simmmmm 0.0.1"
+
+[node name="TextureRect" type="TextureRect" parent="HUD/Bits and bobs"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -18.0
+offset_top = -24.0
+offset_right = -10.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("19_60mlk")
+expand_mode = 1
 
 [node name="NameLabel3D" type="Label3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28943, 0)
 billboard = 1
+
+[editable path="player_model"]

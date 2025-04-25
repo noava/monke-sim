@@ -17,7 +17,7 @@ extends Node
 @export_group("References")
 @export var hook_scene: PackedScene = preload("res://scenes/hook.tscn") ## The hook and rope which we will be instantiating
 @onready var player_body: CharacterBody3D = $".." ## The player, who we will apply forces to
-@onready var hook_raycast: RayCast3D = $"../Head/Camera3D/Hook Raycast" ## The raycast which will look where to shoot the rope
+@onready var hook_raycast: RayCast3D = %"Long Raycast" ## The raycast which will look where to shoot the rope
 @onready var hook_source: Marker3D = $"../ODM/HookRopeStart"
 
 

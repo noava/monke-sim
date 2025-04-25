@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cchpdf1x63oa5"]
+[gd_scene load_steps=4 format=3 uid="uid://cchpdf1x63oa5"]
 
 [ext_resource type="Script" uid="uid://2gx021v5oj0c" path="res://inventory/inv_ui.gd" id="1_f2u1w"]
+[ext_resource type="PackedScene" uid="uid://cl4kuaxya8fje" path="res://inventory/slot.tscn" id="2_w82yi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w82yi"]
 
 [node name="Inv_UI" type="PanelContainer"]
 custom_minimum_size = Vector2(32, 0)
@@ -9,13 +12,14 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -178.0
-offset_top = -77.0
-offset_right = 194.0
-offset_bottom = -29.0
+offset_left = -146.0
+offset_top = -50.0
+offset_right = 146.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxEmpty_w82yi")
 script = ExtResource("1_f2u1w")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -28,4 +32,35 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="ItemGrid" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -4
+
+[node name="PanelContainer" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer2" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer3" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer4" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer5" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer6" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer7" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer8" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer9" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
+layout_mode = 2
+
+[node name="PanelContainer10" parent="MarginContainer/ItemGrid" instance=ExtResource("2_w82yi")]
 layout_mode = 2

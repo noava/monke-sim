@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dvuk261ajeroh"]
+
+[ext_resource type="Script" uid="uid://7ox6pynd1cqc" path="res://inventory/item_data.gd" id="1_o02ub"]
+[ext_resource type="Texture2D" uid="uid://d0f41s36ly6gq" path="res://inventory/items/banana_gun.png" id="2_grfle"]
+
+[resource]
+script = ExtResource("1_o02ub")
+name = "Banana Gun"
+texture = ExtResource("2_grfle")
+damage = 27.0
+item_type = 1
+metadata/_custom_type_script = "uid://7ox6pynd1cqc"

@@ -1,10 +1,12 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://di7df185strvi"]
 
 [ext_resource type="Script" uid="uid://7ox6pynd1cqc" path="res://inventory/item_data.gd" id="1_mek2n"]
-[ext_resource type="Texture2D" uid="uid://cqtd5btkt7qks" path="res://inventory/items/vine.png" id="2_8a104"]
+[ext_resource type="Texture2D" uid="uid://5gegfkusm023" path="res://inventory/items/vine_grapple.png" id="2_8a104"]
 
 [resource]
 script = ExtResource("1_mek2n")
 name = "Vine Grapple"
 texture = ExtResource("2_8a104")
+damage = 0.0
+item_type = 3
 metadata/_custom_type_script = "uid://7ox6pynd1cqc"

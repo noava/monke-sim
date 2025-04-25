@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dw37ibv584nkf"]
+[gd_scene load_steps=51 format=3 uid="uid://dw37ibv584nkf"]
 
 [ext_resource type="Script" uid="uid://comqbk36b4wvn" path="res://scripts/level.gd" id="1_j8asw"]
 [ext_resource type="Texture2D" uid="uid://c3gr08t11puja" path="res://assets/textures/Grass/Grass004_1K-JPG_Color.jpg" id="2_8mr64"]
@@ -13,8 +13,22 @@
 [ext_resource type="Texture2D" uid="uid://cb1576tb11v75" path="res://assets/textures/Bricks/Bricks059_1K-JPG_NormalGL.jpg" id="9_0lbey"]
 [ext_resource type="Texture2D" uid="uid://cpu6a4i6esy6b" path="res://assets/textures/Bricks/Bricks059_1K-JPG_Roughness.jpg" id="10_pm4hl"]
 [ext_resource type="PackedScene" uid="uid://d1qobkjvefgp6" path="res://assets/models/banana.glb" id="13_yh20h"]
-[ext_resource type="PackedScene" uid="uid://cflj7hd6oules" path="res://assets/models/multiple_bananas.glb" id="14_uf0dc"]
+[ext_resource type="PackedScene" uid="uid://535eb5rubpqs" path="res://scenes/collect_banana.tscn" id="14_is2jk"]
 [ext_resource type="Script" uid="uid://btfnvv1uijtfp" path="res://scripts/shop_item.gd" id="15_ci1tm"]
+[ext_resource type="PackedScene" uid="uid://cnnl0rdc5hsq1" path="res://assets/models/floor-old.glb" id="17_0p782"]
+[ext_resource type="PackedScene" uid="uid://p78nvnxpksgh" path="res://assets/models/banana_gun.glb" id="18_pm4hl"]
+[ext_resource type="PackedScene" uid="uid://cuekpbyvfbn51" path="res://assets/models/structure-floor.glb" id="19_ut7m5"]
+[ext_resource type="PackedScene" uid="uid://dt1htxicyahv1" path="res://assets/models/campfire-fishing-stand.glb" id="20_cvg3f"]
+[ext_resource type="PackedScene" uid="uid://cxdsadvdbmlk5" path="res://assets/models/banana_sniper.glb" id="20_ut7m5"]
+[ext_resource type="PackedScene" uid="uid://ddm0tnlgbdiuo" path="res://scenes/barrel.tscn" id="22_hr6wj"]
+[ext_resource type="PackedScene" uid="uid://cgfvuqmla6a7s" path="res://assets/models/bananas_mg.glb" id="23_is2jk"]
+[ext_resource type="PackedScene" uid="uid://dtedjaqqq27ip" path="res://assets/models/paper.glb" id="23_y4kdk"]
+[ext_resource type="Script" uid="uid://cl31yanjvb5sv" path="res://scripts/banana_tree.gd" id="24_56dh8"]
+[ext_resource type="PackedScene" uid="uid://b6ee2p7nt1k7" path="res://assets/models/soda.glb" id="24_kbiaw"]
+[ext_resource type="PackedScene" uid="uid://bwexhhvwm3rod" path="res://assets/models/Banana Tree.glb" id="24_uvqr3"]
+[ext_resource type="PackedScene" uid="uid://dxj67xveyidb2" path="res://assets/models/lamp_post.glb" id="25_oq6f2"]
+[ext_resource type="PackedScene" uid="uid://dxnv55imychw0" path="res://assets/models/trashbag.glb" id="26_xudqt"]
+[ext_resource type="PackedScene" uid="uid://3etexieqjg60" path="res://assets/models/bush.glb" id="27_to3vw"]
 
 [sub_resource type="Gradient" id="Gradient_xuq1u"]
 colors = PackedColorArray(0, 0, 0.176471, 1, 0.0253638, 0.0253638, 0.0253638, 1)
@@ -112,6 +126,29 @@ _data = {
 &"daynite": SubResource("Animation_qem4r")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_hr6wj"]
+size = Vector3(0.501709, 0.0491638, 0.506104)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cvg3f"]
+size = Vector3(0.488037, 0.542969, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pm4hl"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4kdk"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbiaw"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y4kdk"]
+size = Vector3(0.0761719, 0.126953, 0.0830078)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uvqr3"]
+
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8e680"]
 properties/0/path = NodePath("Map/Thang:position")
 properties/0/spawn = true
@@ -157,6 +194,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.759817, -5.52076)
 transform = Transform3D(0.07, 0, 0, 0, 0.093, 0, 0, 0, 0.439, -0.00373697, 0.0394471, -0.0132542)
 shape = SubResource("BoxShape3D_4y0hx")
 
+[node name="Grabbable" type="Node3D" parent="Map/Thang"]
+
 [node name="SpawnPoints" type="Node3D" parent="Map"]
 
 [node name="Spawn0" type="Node3D" parent="Map/SpawnPoints"]
@@ -177,40 +216,160 @@ autoplay = "RESET"
 wait_time = 300.0
 one_shot = true
 
-[node name="RigidBody3D" type="RigidBody3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08442, -5.31639)
-
-[node name="Thang2" type="RigidBody3D" parent="Map"]
+[node name="CollectBanana" parent="Map" instance=ExtResource("14_is2jk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.26098, 0.759817, -5.52076)
-
-[node name="multiple_bananas" parent="Map/Thang2" instance=ExtResource("14_uf0dc")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Thang2"]
-transform = Transform3D(0.134592, 0, 0, 0, 0.093207, 0, 0, 0, 0.438847, 0.00350755, 0.0537121, -0.0132542)
-shape = SubResource("BoxShape3D_4y0hx")
 
 [node name="Shop" type="Node3D" parent="Map"]
 
-[node name="BuyGun" type="CSGBox3D" parent="Map/Shop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.49304, 0.494617, 0)
+[node name="ShopCollision" type="StaticBody3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27139, 0, 3.2596)
+
+[node name="Pallet" type="CollisionShape3D" parent="Map/Shop/ShopCollision"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.0142529, 0.186926, 0.0607715)
+shape = SubResource("BoxShape3D_hr6wj")
+
+[node name="Table" type="CollisionShape3D" parent="Map/Shop/ShopCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.874313, 0.578511, 0.756629)
+shape = SubResource("BoxShape3D_cvg3f")
+
+[node name="floor-old2" parent="Map/Shop" instance=ExtResource("17_0p782")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -2.23792, 0.0566923, 3.29475)
+
+[node name="structure-floor2" parent="Map/Shop" instance=ExtResource("19_ut7m5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.39371, 0.301364, 4.0148)
+
+[node name="BuyBananaGun" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3822, 0.875559, 4.01498)
 use_collision = true
+size = Vector3(0.227539, 0.0869141, 0.303711)
+material = SubResource("StandardMaterial3D_pm4hl")
 script = ExtResource("15_ci1tm")
-item_id = "gun"
+item_id = "banana_gun"
 item_price = 12
 
-[node name="ThisItemDoesntExist" type="CSGBox3D" parent="Map/Shop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.49304, 0.494617, 4.13302)
-use_collision = true
-script = ExtResource("15_ci1tm")
-item_id = "gunsss"
-item_price = 30
+[node name="banana_gun" parent="Map/Shop/BuyBananaGun" instance=ExtResource("18_pm4hl")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0.0343318)
 
-[node name="BuyGrapple" type="CSGBox3D" parent="Map/Shop"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.9861, 0.989233, 0)
+[node name="campfire-fishing-stand2" parent="Map/Shop" instance=ExtResource("20_cvg3f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29138, 0.319499, 4.38397)
+
+[node name="campfire-fishing-stand3" parent="Map/Shop" instance=ExtResource("20_cvg3f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29138, 0.319499, 3.94705)
+
+[node name="BuyBananaSniper" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.29474, 0.546338, 4.15288)
 use_collision = true
+size = Vector3(0.317383, 0.0935059, 0.685547)
+material = SubResource("StandardMaterial3D_pm4hl")
 script = ExtResource("15_ci1tm")
-item_id = "vine_grapple"
-item_price = 50
+item_id = "banana_sniper"
+item_price = 20
+
+[node name="banana_sniper" parent="Map/Shop/BuyBananaSniper" instance=ExtResource("20_ut7m5")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0.251067)
+
+[node name="barrel3" parent="Map/Shop" instance=ExtResource("22_hr6wj")]
+transform = Transform3D(1.47, 0, 0, 0, 1.47, 0, 0, 0, 1.47, -2.84881, 0.264145, 3)
+
+[node name="BuyBananaSMG" type="CSGBox3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.86147, 0.870172, 2.98752)
+use_collision = true
+size = Vector3(0.256104, 0.253662, 0.357422)
+material = SubResource("StandardMaterial3D_pm4hl")
+script = ExtResource("15_ci1tm")
+item_id = "bananas_mg"
+item_price = 23
+
+[node name="bananas_mg" parent="Map/Shop/BuyBananaSMG" instance=ExtResource("23_is2jk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0867949)
+
+[node name="paper" parent="Map/Shop" instance=ExtResource("23_y4kdk")]
+transform = Transform3D(0.99899, 0, 0.044927, 0, 1, 0, -0.044927, 0, 0.99899, -2.24081, 0.320854, 3.3039)
+
+[node name="paper2" parent="Map/Shop" instance=ExtResource("23_y4kdk")]
+transform = Transform3D(0.704064, 0, -0.710136, 0, 1, 0, 0.710136, 0, 0.704064, -2.24081, 0.315952, 3.3039)
+
+[node name="lamp_post" parent="Map/Shop" instance=ExtResource("25_oq6f2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.10587, 0.0731747, 2.26048)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Map/Shop/lamp_post"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.33924, 0)
+use_collision = true
+radius = 0.109375
+height = 4.75488
+material = SubResource("StandardMaterial3D_y4kdk")
+
+[node name="trashbag" parent="Map/Shop" instance=ExtResource("26_xudqt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.96236, 0.387787, 4.48689)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Map/Shop/trashbag"]
+use_collision = true
+radius = 0.364209
+material = SubResource("StandardMaterial3D_kbiaw")
+
+[node name="trashbag2" parent="Map/Shop" instance=ExtResource("26_xudqt")]
+transform = Transform3D(0.872181, 0.240033, 0.426246, -0.316724, 0.941137, 0.118093, -0.37281, -0.238001, 0.896866, -4.22471, 0.387787, 3.29385)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="Map/Shop/trashbag2"]
+use_collision = true
+radius = 0.364209
+material = SubResource("StandardMaterial3D_kbiaw")
+
+[node name="bush" parent="Map/Shop" instance=ExtResource("27_to3vw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.44671, -0.47621, 2.0336)
+
+[node name="COKACOLA" type="RigidBody3D" parent="Map/Shop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.882, 0.378576, 4.1453)
+
+[node name="soda" parent="Map/Shop/COKACOLA" instance=ExtResource("24_kbiaw")]
+
+[node name="Grabbable" type="Node3D" parent="Map/Shop/COKACOLA"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Shop/COKACOLA"]
+shape = SubResource("BoxShape3D_y4kdk")
+
+[node name="COKACOLA2" type="RigidBody3D" parent="Map/Shop"]
+transform = Transform3D(-0.99878, 0, 0.0493728, 0, 1, 0, -0.0493728, 0, -0.99878, -2.94147, 0.378576, 4.24684)
+
+[node name="soda" parent="Map/Shop/COKACOLA2" instance=ExtResource("24_kbiaw")]
+
+[node name="Grabbable" type="Node3D" parent="Map/Shop/COKACOLA2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Shop/COKACOLA2"]
+shape = SubResource("BoxShape3D_y4kdk")
+
+[node name="COKACOLA3" type="RigidBody3D" parent="Map/Shop"]
+transform = Transform3D(0.175556, 0, -0.984469, 0, 1, 0, 0.984469, 0, 0.175556, -2.7587, 0.378576, 4.07217)
+
+[node name="soda" parent="Map/Shop/COKACOLA3" instance=ExtResource("24_kbiaw")]
+
+[node name="Grabbable" type="Node3D" parent="Map/Shop/COKACOLA3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Shop/COKACOLA3"]
+shape = SubResource("BoxShape3D_y4kdk")
+
+[node name="Banana Tree" parent="Map" instance=ExtResource("24_uvqr3")]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, -6.25391, 0.0566923, 1.29458)
+script = ExtResource("24_56dh8")
+
+[node name="SpawnPoint" type="Node3D" parent="Map/Banana Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.83157, 4.89967, -2.17361)
+
+[node name="CSGBox3D" type="StaticBody3D" parent="Map/Banana Tree"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.71325, -0.432007, -2.22422)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/Banana Tree/CSGBox3D"]
+shape = SubResource("BoxShape3D_uvqr3")
+
+[node name="COKACOLA" type="RigidBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.679037, 0.759817, -5.52076)
+
+[node name="soda" parent="Map/COKACOLA" instance=ExtResource("24_kbiaw")]
+
+[node name="Grabbable" type="Node3D" parent="Map/COKACOLA"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/COKACOLA"]
+shape = SubResource("BoxShape3D_y4kdk")
 
 [node name="Players" type="Node3D" parent="."]
 
