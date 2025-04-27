@@ -32,7 +32,7 @@ func populate_item_grid(slot_datas: Array[SlotData]) -> void:
 
 
 func _ready() -> void:	
-	var inv_data = preload("res://inventory/player_inv.tres")
+	var inv_data = preload("res://inventory/hacker_inv.tres")
 	populate_item_grid(inv_data.slot_datas)
 	
 	# Updates the banana count in UI
@@ -78,9 +78,9 @@ func equip_item(slot_index: int) -> void:
 			%vine_grapple.rpc("set_enabled", is_grapple)
 			
 			# Gun
-			var is_gun: bool = item_data and item_data.item_type == ItemData.ItemType.GUN
-			weapons_holder.rpc("set_enabled", is_gun)
-			if is_gun:
+			var is_item: bool = item_data and (item_data.item_type == ItemData.ItemType.GUN || item_data.item_type == ItemData.ItemType.FOOD)
+			weapons_holder.rpc("set_enabled", is_item)
+			if is_item:
 				weapons_holder.set_item_data(item_data)
 			
 			# Debugging

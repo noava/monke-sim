@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InventoryData" load_steps=11 format=3 uid="uid://dsiwjpmohpg0b"]
+[gd_resource type="Resource" script_class="InventoryData" load_steps=13 format=3 uid="uid://dsiwjpmohpg0b"]
 
 [ext_resource type="Script" uid="uid://d1lcn4uu3b7j3" path="res://inventory/inventory_data.gd" id="1_ejen5"]
 [ext_resource type="Script" uid="uid://cidpd24yqp6no" path="res://inventory/slot_data.gd" id="2_opjg4"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://caiaip3jp3cmc" path="res://inventory/items/bananas_mg.tres" id="4_x7ldr"]
 [ext_resource type="Resource" uid="uid://bvsc4vcauxdxk" path="res://inventory/items/banana_sniper.tres" id="5_v3h6w"]
 [ext_resource type="Resource" uid="uid://dvuk261ajeroh" path="res://inventory/items/banana_gun.tres" id="6_ipylg"]
+[ext_resource type="Resource" uid="uid://8iiu1oo2qdai" path="res://inventory/items/chicken_leg.tres" id="7_opjg4"]
 
 [sub_resource type="Resource" id="Resource_knutq"]
 script = ExtResource("2_opjg4")
@@ -31,7 +32,13 @@ item_id = ""
 item_data = ExtResource("6_ipylg")
 metadata/_custom_type_script = "uid://cidpd24yqp6no"
 
+[sub_resource type="Resource" id="Resource_yrf16"]
+script = ExtResource("2_opjg4")
+item_id = ""
+item_data = ExtResource("7_opjg4")
+metadata/_custom_type_script = "uid://cidpd24yqp6no"
+
 [resource]
 script = ExtResource("1_ejen5")
-slot_datas = Array[ExtResource("2_opjg4")]([SubResource("Resource_knutq"), SubResource("Resource_m2v4j"), SubResource("Resource_0xp2f"), SubResource("Resource_7fuvg"), null, null, null, null, null, null])
+slot_datas = Array[ExtResource("2_opjg4")]([SubResource("Resource_knutq"), SubResource("Resource_m2v4j"), SubResource("Resource_0xp2f"), SubResource("Resource_7fuvg"), null, null, null, null, null, SubResource("Resource_yrf16")])
 metadata/_custom_type_script = "uid://d1lcn4uu3b7j3"
