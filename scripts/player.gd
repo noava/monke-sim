@@ -92,8 +92,9 @@ func _ready():
 		
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
-	player_mesh.visible = false
-	
+	# Player cant see themselves. Only their shadow
+	player_mesh.cast_shadow = MeshInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+
 func _unhandled_input(event):
 	if not is_multiplayer_authority(): return
 	

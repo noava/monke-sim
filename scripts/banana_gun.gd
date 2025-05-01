@@ -67,10 +67,13 @@ func _unhandled_input(_event):
 func play_animation():
 	if ANIMATIONPLAYER:
 		ANIMATIONPLAYER.stop()
-		if item_data.item_type == ItemData.ItemType.GUN:
+		
+		# TODO: Change this to something better. Either a loop of all anims or it checks for anim it will be doing
+		if ANIMATIONPLAYER.has_animation("shoot"):
 			ANIMATIONPLAYER.play("shoot")
-		elif item_data.item_type == ItemData.ItemType.FOOD:
+		if ANIMATIONPLAYER.has_animation("eat"):
 			ANIMATIONPLAYER.play("eat")
+	
 	if muzzle_flash:
 		muzzle_flash.restart()
 		muzzle_flash.emitting = true
