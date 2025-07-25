@@ -9,6 +9,9 @@ func _ready() -> void:
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(del_player)
 	
+	if "--server" in OS.get_cmdline_args():
+		return
+	
 	for id in multiplayer.get_peers():
 		add_player(id)
 		

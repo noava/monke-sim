@@ -1,6 +1,6 @@
 extends Node
 
-const PORT = 135
+const PORT = 8698
 var peer = ENetMultiplayerPeer.new()
 var level_scene = preload("res://scenes/world.tscn")
 @onready var host_name_entry: LineEdit = %HostNameEntry
@@ -13,6 +13,10 @@ var player_display_name: String = "":
 func _ready() -> void:
 	$UI.show()
 	
+	if "--server" in OS.get_cmdline_args():
+		peer.create_server(PORT)
+		start_game()
+		print("Server started")
 
 func _on_host_pressed() -> void:
 	if host_name_entry.text == "":
@@ -22,11 +26,11 @@ func _on_host_pressed() -> void:
 	player_display_name = host_name_entry.text
 	
 	peer.create_server(PORT)
-	multiplayer.multiplayer_peer = peer
 	start_game()
 
 func start_game():
 	$UI.hide()
+	multiplayer.multiplayer_peer = peer
 	
 	if multiplayer.is_server():
 		change_level.call_deferred(level_scene)
@@ -54,5 +58,13 @@ func _on_join_pressed() -> void:
 	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
 		OS.alert("Failed to join. Check IP")
 		return
-	multiplayer.multiplayer_peer = peer
+	start_game()
+
+func _on_public_server_btn_pressed() -> void:
+	ip_entry.text = "monke-sim-server.noava.dev"
+	
+	peer.create_client(ip_entry.text, PORT)
+	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_DISCONNECTED:
+		OS.alert("Public Server down at the moment")
+		return
 	start_game()
