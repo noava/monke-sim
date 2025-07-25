@@ -9,6 +9,7 @@ var bar_tween: Tween = null
 @onready var bits_and_bobs: Control = $"../HUD/Bits and bobs"
 
 var is_dead: bool = false
+var is_healing = false
 
 var health : float:
 	get:
@@ -58,3 +59,7 @@ func death():
 	health = max_health
 	player.visible = true
 	is_dead = false
+
+
+func receive_health(hp: float):
+	health += hp

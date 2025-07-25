@@ -64,7 +64,7 @@ var crouch_val = 0
 @onready var grab_target: Node3D = $"Head/Camera3D/Grab Ray/Grab Target"
 @onready var hook_raycast: RayCast3D = %"Long Raycast"
 @onready var hook_controller: HookController = $HookController
-@onready var health_component: Node3D = $HealthComponent
+@onready var health_component: Node3D = %HealthComponent
 @onready var name_label_3d: Label3D = %NameLabel3D
 
 var player_name: String = "Unnamed":
@@ -92,8 +92,9 @@ func _ready():
 		
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.current = true
-	player_mesh.visible = false
-	
+	# Player cant see themselves. Only their shadow
+	player_mesh.cast_shadow = MeshInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+
 func _unhandled_input(event):
 	if not is_multiplayer_authority(): return
 	

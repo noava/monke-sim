@@ -176,7 +176,6 @@ offset_bottom = -122.0
 script = ExtResource("5_scoti")
 
 [node name="Join" type="Control" parent="UI"]
-visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -226,7 +225,13 @@ offset_right = -25.0
 offset_bottom = -122.0
 script = ExtResource("5_scoti")
 
+[node name="PublicServerBtn" type="Button" parent="UI/Join/VBoxContainer"]
+layout_mode = 2
+text = "Join Public"
+alignment = 0
+
 [node name="HowToPlay" type="Control" parent="UI"]
+visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -346,4 +351,5 @@ expand_icon = true
 [connection signal="pressed" from="UI/MainMenu/VBoxContainer/Quit" to="UI" method="_on_quit_pressed"]
 [connection signal="pressed" from="UI/Host/VBoxContainer/HostBtn" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="UI/Join/VBoxContainer/JoinBtn" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="UI/Join/VBoxContainer/PublicServerBtn" to="." method="_on_public_server_btn_pressed"]
 [connection signal="pressed" from="UI/HomeBtn/HomeBtn" to="UI" method="_on_home_btn_pressed"]
