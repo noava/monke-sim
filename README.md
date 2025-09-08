@@ -9,6 +9,9 @@
 3D FPS Game made for BetaJam 2025 in Godot 4.4
 </h2>
 
+# Gameplay Showcase:
+![showcase](docs/gameplay.gif)
+
 # This Game includes:
 - Walking,
 - Jumping
@@ -16,7 +19,7 @@
 - Grab items
 - Hooking
 
-# Controls
+# Controls:
 - WASD to move
 - Space to jump
 - Left Shift to sprint
